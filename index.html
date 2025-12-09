@@ -2400,7 +2400,7 @@
             
             window.addEventListener('load', () => {
                 // Register new service worker with cache-busting
-                navigator.serviceWorker.register('/sw.js?v=6&t=' + Date.now())
+                navigator.serviceWorker.register('/sw.js?v=7&t=' + Date.now())
                     .then((registration) => {
                         console.log('Service Worker registered:', registration.scope);
                         

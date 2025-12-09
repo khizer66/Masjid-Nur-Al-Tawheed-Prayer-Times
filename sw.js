@@ -1,148 +1,99 @@
 // Service Worker for Prayer Times Display
-// Version 1.3.0
+// Version: bump this on each deploy (e.g. v7)
 
-const CACHE_NAME = 'prayer-times-v6';
-const urlsToCache = [
-  '/',
-  '/index.html'
-];
+const CACHE_NAME = 'prayer-times-v7';
+const CACHE_PREFIX = 'prayer-times-';
+const urlsToCache = ['/', '/index.html'];
 
-// Install event - cache resources
+// Install
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Service Worker: Caching files');
-        return cache.addAll(urlsToCache);
-      })
-      .catch((error) => {
-        console.error('Service Worker: Cache failed', error);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
-  self.skipWaiting(); // Activate immediately
+  self.skipWaiting();
 });
 
-// Activate event - clean up old caches
+// Activate – delete old caches ONLY if not current version
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          // Delete ALL old caches (not just non-matching ones)
-          if (cacheName.startsWith('prayer-times-')) {
-            console.log('Service Worker: Deleting old cache', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      // Force update all clients immediately
-      return self.clients.claim().then(() => {
-        // Send message to all clients to reload
-        return self.clients.matchAll().then((clients) => {
-          clients.forEach((client) => {
-            client.postMessage({ type: 'SW_UPDATED', action: 'reload' });
-          });
-        });
+      let removed = false;
+      const deletions = cacheNames.map((name) => {
+        if (name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME) {
+          removed = true;
+          return caches.delete(name);
+        }
       });
+      return Promise.all(deletions).then(() => {
+        return self.clients.claim().then(() => removed);
+      });
+    }).then((removed) => {
+      if (removed) {
+        self.clients.matchAll().then((clients) => {
+          clients.forEach((client) =>
+            client.postMessage({ type: 'SW_UPDATED', action: 'reload' })
+          );
+        });
+      }
     })
   );
-  // Take control immediately
-  return self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
-    return;
-  }
+  if (event.request.method !== 'GET') return;
 
-  // Skip API requests - always fetch from network
+  // API → always fetch
   if (event.request.url.includes('api.aladhan.com')) {
     event.respondWith(
-      fetch(event.request)
-        .catch(() => {
-          // If network fails, return a basic response
-          return new Response(
-            JSON.stringify({ error: 'Network unavailable' }),
-            { headers: { 'Content-Type': 'application/json' } }
-          );
-        })
+      fetch(event.request).catch(() => {
+        return new Response(
+          JSON.stringify({ error: 'Network unavailable' }),
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      })
     );
     return;
   }
 
-  // Skip external CDN resources - let browser handle them
   const url = new URL(event.request.url);
-  const isExternal = url.origin !== self.location.origin;
-  if (isExternal) {
-    // For external resources, just fetch from network (don't cache)
+  if (url.origin !== self.location.origin) {
     event.respondWith(fetch(event.request));
     return;
   }
 
-  // For HTML files, always fetch from network first (no cache)
+  // HTML → always fresh
   if (event.request.destination === 'document' || event.request.url.endsWith('.html')) {
     event.respondWith(
-      fetch(event.request, { cache: 'no-store' })
-        .then((response) => {
-          // Don't cache HTML files - always get fresh version
-          return response;
-        })
-        .catch(() => {
-          // If network fails, try cache as fallback
-          return caches.match(event.request);
-        })
+      fetch(event.request, { cache: 'no-store' }).catch(() =>
+        caches.match(event.request)
+      )
     );
     return;
   }
 
-  // For other requests, try network first, then cache
+  // Others → network first, then cache
   event.respondWith(
     fetch(event.request, { cache: 'no-cache' })
       .then((response) => {
-        // If network succeeds, return it and update cache
         if (response && response.status === 200 && response.type === 'basic') {
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
+          caches.open(CACHE_NAME).then((cache) =>
+            cache.put(event.request, response.clone())
+          );
         }
         return response;
       })
-      .catch(() => {
-        // If network fails, try cache
-        return caches.match(event.request)
-          .then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;
-            }
-            // If both fail and it's a document request, return index.html
-            if (event.request.destination === 'document') {
-              return caches.match('/index.html');
-            }
-          });
-      })
+      .catch(() => caches.match(event.request))
   );
 });
 
-// Background sync for prayer times (if supported)
+// Background sync
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-prayer-times') {
     event.waitUntil(
       fetch('https://api.aladhan.com/v1/timingsByCity')
-        .then((response) => response.json())
-        .then((data) => {
-          // Store in IndexedDB or send message to client
-          return Promise.resolve();
-        })
-        .catch((error) => {
-          console.error('Background sync failed:', error);
-        })
+        .then((res) => res.json())
+        .catch((err) => console.error('Background sync failed:', err))
     );
   }
 });
-
-
