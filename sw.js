@@ -1,7 +1,7 @@
 // Service Worker for Prayer Times Display
-// Version 1.0.0
+// Version 1.1.0
 
-const CACHE_NAME = 'prayer-times-v3';
+const CACHE_NAME = 'prayer-times-v4';
 const urlsToCache = [
   '/',
   '/index.html'
@@ -34,9 +34,11 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      // Force update all clients
+      return self.clients.claim();
     })
   );
-  return self.clients.claim(); // Take control immediately
 });
 
 // Fetch event - serve from cache, fallback to network
