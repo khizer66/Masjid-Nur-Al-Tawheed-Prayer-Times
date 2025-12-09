@@ -662,50 +662,46 @@
                 
                 const modal = document.createElement('div');
                 modal.className = 'fixed inset-0 z-[9999] flex items-center justify-center';
-                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); animation: fadeIn 0.3s ease-out;';
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); animation: fadeIn 0.3s ease-out;';
+                
+                const siteName = window.location.hostname || 'prayer times';
                 
                 modal.innerHTML = `
-                    <div class="glass-card rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-[#5eead4]/30" style="animation: slideUp 0.4s ease-out; background: rgba(30, 41, 55, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(94, 234, 212, 0.3); border-radius: 1rem; padding: 2rem; max-width: 28rem; width: 100%; margin: 0 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
-                        <div class="text-center mb-6">
-                            <div class="w-16 h-16 bg-[#5eead4]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                                <svg class="w-8 h-8 text-[#5eead4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                            </div>
-                            <h2 class="text-2xl font-bold text-white mb-2">Access Required</h2>
-                            <p class="text-white/60 text-sm">Enter password to view prayer times</p>
+                    <div style="animation: slideUp 0.4s ease-out; background: #f5f5dc; border: 1px solid #8b7355; border-radius: 4px; padding: 20px; max-width: 400px; width: 90%; margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
+                        <div style="margin-bottom: 16px;">
+                            <div style="color: #2d5016; font-size: 13px; font-weight: normal; margin-bottom: 8px;">${siteName} says</div>
+                            <div style="color: #2d5016; font-size: 13px; font-weight: normal; margin-bottom: 16px;">Enter password to access prayer times:</div>
                         </div>
-                        <form id="passwordForm" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-300 mb-2">Password</label>
+                        <form id="passwordForm" style="margin-bottom: 16px;">
+                            <div style="margin-bottom: 16px;">
                                 <input 
                                     type="password" 
                                     id="passwordInput"
                                     autocomplete="current-password"
-                                    class="w-full bg-[#0f1621] border border-[#2d3748] rounded-xl px-5 py-4 text-white text-lg font-medium focus:border-[#5eead4] focus:outline-none focus:ring-2 focus:ring-[#5eead4]/30 transition-all input-focus"
-                                    placeholder="Enter password..."
+                                    style="width: 100%; padding: 8px 12px; background: #f5f5dc; border: 2px solid #2d5016; border-radius: 4px; font-size: 14px; color: #1a1a1a; outline: none; box-sizing: border-box;"
                                     autofocus
                                 >
-                                <div id="errorMessage" class="hidden mt-2 text-sm text-red-400 flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span>Incorrect password. Please try again.</span>
+                                <div id="errorMessage" class="hidden" style="margin-top: 8px; color: #d32f2f; font-size: 12px;">
+                                    Incorrect password. Please try again.
                                 </div>
                             </div>
-                            <div class="flex gap-3 pt-2">
+                            <div style="display: flex; justify-content: flex-end; gap: 8px;">
                                 <button 
                                     type="button"
                                     id="cancelBtn"
-                                    class="flex-1 px-5 py-3 bg-[#0f1621] border border-[#2d3748] text-white rounded-xl font-semibold hover:bg-[#1e2937] hover:border-[#5eead4]/30 transition-all"
+                                    style="padding: 6px 16px; background: #c8e6c9; border: 1px solid #81c784; border-radius: 4px; color: #2d5016; font-size: 13px; font-weight: normal; cursor: pointer; outline: none;"
+                                    onmouseover="this.style.background='#a5d6a7'"
+                                    onmouseout="this.style.background='#c8e6c9'"
                                 >
                                     Cancel
                                 </button>
                                 <button 
                                     type="submit"
-                                    class="flex-1 px-5 py-3 bg-[#5eead4] text-[#1a2332] rounded-xl font-bold hover:bg-[#4dd4bf] transition-all shadow-lg shadow-teal-500/30"
+                                    style="padding: 6px 16px; background: #2d5016; border: 1px solid #2d5016; border-radius: 4px; color: #ffffff; font-size: 13px; font-weight: normal; cursor: pointer; outline: none;"
+                                    onmouseover="this.style.background='#1e3a0f'"
+                                    onmouseout="this.style.background='#2d5016'"
                                 >
-                                    Access
+                                    OK
                                 </button>
                             </div>
                         </form>
@@ -733,12 +729,12 @@
                         resolve(true);
                     } else {
                         errorMessage.classList.remove('hidden');
-                        passwordInput.classList.add('border-red-400', 'focus:border-red-400', 'focus:ring-red-400/30');
+                        passwordInput.style.borderColor = '#d32f2f';
                         passwordInput.value = '';
                         passwordInput.focus();
                         passwordInput.addEventListener('input', () => {
                             errorMessage.classList.add('hidden');
-                            passwordInput.classList.remove('border-red-400', 'focus:border-red-400', 'focus:ring-red-400/30');
+                            passwordInput.style.borderColor = '#2d5016';
                         }, { once: true });
                     }
                 });
@@ -760,6 +756,15 @@
                         cleanup();
                         resolve(false);
                     }
+                });
+                
+                passwordInput.addEventListener('focus', () => {
+                    passwordInput.style.borderColor = '#2d5016';
+                    passwordInput.style.boxShadow = '0 0 0 1px #2d5016';
+                });
+                
+                passwordInput.addEventListener('blur', () => {
+                    passwordInput.style.boxShadow = 'none';
                 });
                 
                 setTimeout(() => passwordInput.focus(), 100);
