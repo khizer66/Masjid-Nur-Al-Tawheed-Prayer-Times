@@ -2502,7 +2502,14 @@
         };
 
         // Wait for React to load, then render
-        const waitForReact = () => {
+        const waitForReact = async () => {
+            // First check authentication
+            const authenticated = await checkAuth();
+            if (!authenticated) {
+                return;
+            }
+            
+            // Then wait for React to load
             if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
                 renderApp();
             } else {
@@ -2511,7 +2518,7 @@
             }
         };
 
-        // Start waiting for React
+        // Start waiting for React (after authentication)
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', waitForReact);
         } else {
