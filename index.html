@@ -287,6 +287,33 @@
         
         .arabic-font { font-family: 'Amiri', serif; }
         .glass-card { background: rgba(26, 45, 71, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(102, 225, 220, 0.15); }
+        
+        /* Modal animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Input focus effects for login modal */
+        .input-focus:focus {
+            border-color: #5eead4;
+            box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.1);
+            transform: translateY(-1px);
+        }
         .active-card { box-shadow: 0 0 50px rgba(102, 225, 220, 0.25), 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 2px solid rgba(255, 255, 255, 0.3); }
         
         .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 6px rgba(255, 255, 255, 0.7); }
@@ -625,28 +652,132 @@
         // Security
         const ENABLE_PASSWORD_PROTECTION = true;
         const ADMIN_PASSWORD = 'masjid2025';
-        function checkAuth() {
+        
+        function showPasswordModal() {
+            return new Promise((resolve) => {
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm';
+                modal.style.animation = 'fadeIn 0.3s ease-out';
+                
+                modal.innerHTML = `
+                    <div class="glass-card rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-[#5eead4]/30" style="animation: slideUp 0.4s ease-out; background: rgba(30, 41, 55, 0.95);">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-[#5eead4]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                <svg class="w-8 h-8 text-[#5eead4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-2">Access Required</h2>
+                            <p class="text-white/60 text-sm">Enter password to view prayer times</p>
+                        </div>
+                        <form id="passwordForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-300 mb-2">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="passwordInput"
+                                    autocomplete="current-password"
+                                    class="w-full bg-[#0f1621] border border-[#2d3748] rounded-xl px-5 py-4 text-white text-lg font-medium focus:border-[#5eead4] focus:outline-none focus:ring-2 focus:ring-[#5eead4]/30 transition-all input-focus"
+                                    placeholder="Enter password..."
+                                    autofocus
+                                >
+                                <div id="errorMessage" class="hidden mt-2 text-sm text-red-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>Incorrect password. Please try again.</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 pt-2">
+                                <button 
+                                    type="button"
+                                    id="cancelBtn"
+                                    class="flex-1 px-5 py-3 bg-[#0f1621] border border-[#2d3748] text-white rounded-xl font-semibold hover:bg-[#1e2937] hover:border-[#5eead4]/30 transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button 
+                                    type="submit"
+                                    class="flex-1 px-5 py-3 bg-[#5eead4] text-[#1a2332] rounded-xl font-bold hover:bg-[#4dd4bf] transition-all shadow-lg shadow-teal-500/30"
+                                >
+                                    Access
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                const passwordInput = modal.querySelector('#passwordInput');
+                const passwordForm = modal.querySelector('#passwordForm');
+                const cancelBtn = modal.querySelector('#cancelBtn');
+                const errorMessage = modal.querySelector('#errorMessage');
+                
+                const cleanup = () => {
+                    modal.style.animation = 'fadeOut 0.3s ease-in';
+                    setTimeout(() => modal.remove(), 300);
+                };
+                
+                passwordForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const password = passwordInput.value;
+                    
+                    if (password === ADMIN_PASSWORD) {
+                        cleanup();
+                        resolve(true);
+                    } else {
+                        errorMessage.classList.remove('hidden');
+                        passwordInput.classList.add('border-red-400', 'focus:border-red-400', 'focus:ring-red-400/30');
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                        passwordInput.addEventListener('input', () => {
+                            errorMessage.classList.add('hidden');
+                            passwordInput.classList.remove('border-red-400', 'focus:border-red-400', 'focus:ring-red-400/30');
+                        }, { once: true });
+                    }
+                });
+                
+                cancelBtn.addEventListener('click', () => {
+                    cleanup();
+                    resolve(false);
+                });
+                
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        cleanup();
+                        resolve(false);
+                    }
+                });
+                
+                passwordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        cleanup();
+                        resolve(false);
+                    }
+                });
+                
+                setTimeout(() => passwordInput.focus(), 100);
+            });
+        }
+        
+        async function checkAuth() {
             if (!ENABLE_PASSWORD_PROTECTION) return true;
             
             const stored = sessionStorage.getItem('admin_authenticated');
             if (stored === 'true') return true;
             
-            const password = prompt('Enter password to access prayer times:');
-            if (password === ADMIN_PASSWORD) {
+            const authenticated = await showPasswordModal();
+            if (authenticated) {
                 sessionStorage.setItem('admin_authenticated', 'true');
                 return true;
             }
             
-            alert('Access denied. Incorrect password.');
-            window.location.href = '/';
+            document.body.innerHTML = '<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f1c2e] via-[#1a2d47] to-[#213655]"><div class="text-center"><h1 class="text-3xl font-bold text-white mb-4">Access Denied</h1><p class="text-white/70">Redirecting to home...</p></div></div>';
+            setTimeout(() => window.location.href = '/', 2000);
             return false;
         }
         
-        if (!checkAuth()) {
-            document.body.innerHTML = '<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f1c2e] via-[#1a2d47] to-[#213655]"><div class="text-center"><h1 class="text-3xl font-bold text-white mb-4">Access Denied</h1><p class="text-white/70">Invalid password. Redirecting...</p></div></div>';
-            setTimeout(() => window.location.href = '/', 2000);
-        }
-
         const { useState, useEffect, useCallback, useMemo } = React;
 
         // Configuration
