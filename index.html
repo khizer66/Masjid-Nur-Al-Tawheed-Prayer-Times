@@ -2383,20 +2383,24 @@
 
         // Register Service Worker for offline support
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Force unregister old service workers first
-                navigator.serviceWorker.getRegistrations().then((registrations) => {
-                    registrations.forEach((registration) => {
-                        if (registration.active && registration.active.scriptURL.includes('sw.js')) {
-                            registration.unregister().then(() => {
-                                console.log('Old service worker unregistered');
+            // Unregister ALL service workers immediately on page load
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach((registration) => {
+                    registration.unregister().then(() => {
+                        console.log('Service worker unregistered');
+                        // Clear all caches
+                        caches.keys().then((cacheNames) => {
+                            cacheNames.forEach((cacheName) => {
+                                caches.delete(cacheName);
                             });
-                        }
+                        });
                     });
                 });
-                
+            });
+            
+            window.addEventListener('load', () => {
                 // Register new service worker with cache-busting
-                navigator.serviceWorker.register('/sw.js?v=5&t=' + Date.now())
+                navigator.serviceWorker.register('/sw.js?v=6&t=' + Date.now())
                     .then((registration) => {
                         console.log('Service Worker registered:', registration.scope);
                         
