@@ -45,7 +45,7 @@ This project is deployed on Vercel via GitHub:
    - Vercel will auto-detect and deploy
    - Your site will be live immediately
 
-**Current Deployment:** https://prayer-times-mu-eight.vercel.app/
+**Current Deployment:** https://masjid-nur-al-tawheed-prayer-times.vercel.app/
 
 3. **Automatic Deployments**
    - Push changes to GitHub → Vercel auto-deploys
@@ -62,8 +62,8 @@ If you prefer different hosting:
 ## 🔐 Access & Security
 
 ### URLs
-- **Main Display**: https://prayer-times-mu-eight.vercel.app/
-- **Admin Panel**: https://prayer-times-mu-eight.vercel.app/admin.html
+- **Main Display**: https://masjid-nur-al-tawheed-prayer-times.vercel.app/
+- **Admin Panel**: https://masjid-nur-al-tawheed-prayer-times.vercel.app/admin.html
 
 ### Default Credentials
 - **Password**: `masjid2025` ⚠️ **CHANGE IMMEDIATELY!**

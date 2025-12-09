@@ -9,8 +9,8 @@
 ## 🚀 First Steps
 
 ### 1. Access Your Site
-- **Main Display**: https://prayer-times-mu-eight.vercel.app/
-- **Admin Panel**: https://prayer-times-mu-eight.vercel.app/admin.html
+- **Main Display**: https://masjid-nur-al-tawheed-prayer-times.vercel.app/
+- **Admin Panel**: https://masjid-nur-al-tawheed-prayer-times.vercel.app/admin.html
 - **Default Password**: `masjid2025` ⚠️ **Change this immediately!**
 
 ### 2. Set Up on TV

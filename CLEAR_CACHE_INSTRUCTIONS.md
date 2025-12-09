@@ -3,7 +3,7 @@
 ## Quick Method (Recommended)
 
 ### Chrome/Edge:
-1. Visit: https://prayer-times-mu-eight.vercel.app/
+1. Visit: https://masjid-nur-al-tawheed-prayer-times.vercel.app/
 2. Press **F12** (or **Ctrl + Shift + I**)
 3. Click **Application** tab
 4. Left sidebar → **Service Workers** → Click **Unregister**
@@ -12,7 +12,7 @@
 7. Press **Ctrl + Shift + R** to hard refresh
 
 ### Firefox:
-1. Visit: https://prayer-times-mu-eight.vercel.app/
+1. Visit: https://masjid-nur-al-tawheed-prayer-times.vercel.app/
 2. Press **F12** (or **Ctrl + Shift + I**)
 3. Click **Storage** tab
 4. Expand **Service Workers** → Click **Unregister**
@@ -62,5 +62,5 @@
 The amber/gold header should now be visible! If not:
 - Wait 1-2 minutes for Vercel deployment to complete
 - Try opening in an **Incognito/Private window**
-- Add `?v=5` to the URL: https://prayer-times-mu-eight.vercel.app/?v=5
+- Add `?v=5` to the URL: https://masjid-nur-al-tawheed-prayer-times.vercel.app/?v=5
 

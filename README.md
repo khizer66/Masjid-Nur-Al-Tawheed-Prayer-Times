@@ -6,7 +6,7 @@ A modern, digital prayer times display system for Masjid Nur Al Tawheed in Skopj
 
 The Prayer Times Display is a web-based application designed for large-screen displays in mosques. It automatically fetches prayer times from the Aladhan API, displays them in an elegant interface with Islamic aesthetics, and includes features for managing hadiths and announcements.
 
-**Live Deployment:** https://prayer-times-mu-eight.vercel.app/
+**Live Deployment:** https://masjid-nur-al-tawheed-prayer-times.vercel.app/
 
 ## Features
 
@@ -27,9 +27,9 @@ The Prayer Times Display is a web-based application designed for large-screen di
 
 The system is deployed on **Vercel** and connected to a **GitHub repository** for automatic deployments. When changes are pushed to the GitHub repository, Vercel automatically rebuilds and deploys the updated site.
 
-**Deployment URL:** https://prayer-times-mu-eight.vercel.app/
+**Deployment URL:** https://masjid-nur-al-tawheed-prayer-times.vercel.app/
 
-**Admin Panel:** https://prayer-times-mu-eight.vercel.app/admin.html
+**Admin Panel:** https://masjid-nur-al-tawheed-prayer-times.vercel.app/admin.html
 
 ## Technical Architecture
 
