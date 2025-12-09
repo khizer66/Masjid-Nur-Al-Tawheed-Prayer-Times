@@ -1,0 +1,18 @@
+# Local development files
+serve.py
+serve.bat
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

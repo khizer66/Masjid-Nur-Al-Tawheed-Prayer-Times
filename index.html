@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Masjid Nur Al Tawheed Prayer Times - Daily Prayer Times for Skopje, Macedonia</title>
+    <meta name="description" content="Masjid Nur Al Tawheed Prayer Times - Accurate daily prayer times for Skopje, Macedonia. View Fajr, Dhuhr, Asr, Maghrib, and Isha prayer times with Iqamah schedules.">
+    <meta name="keywords" content="prayer times, masjid, Skopje, Macedonia, Islamic prayer, salah times, adhan, iqamah">
+    <meta name="author" content="Masjid Nur Al Tawheed">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://prayertimes5.netlify.app/">
+    <meta property="og:title" content="Masjid Nur Al Tawheed Prayer Times">
+    <meta property="og:description" content="Daily prayer times for Masjid Nur Al Tawheed, Skopje, Macedonia">
+    <meta property="og:image" content="https://prayertimes5.netlify.app/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://prayertimes5.netlify.app/">
+    <meta property="twitter:title" content="Masjid Nur Al Tawheed Prayer Times">
+    <meta property="twitter:description" content="Daily prayer times for Masjid Nur Al Tawheed, Skopje, Macedonia">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f1c2e">
+    
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://api.aladhan.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+        /* TV-optimized: Allow scrolling if needed, but prefer no-scroll */
+        body.no-scroll { overflow: hidden; }
+        body.allow-scroll { overflow-y: auto; overflow-x: hidden; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        @keyframes pulse-glow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.7; } }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 0.9; } }
+        @keyframes patternDrift { to { background-position: 120px 120px; } }
+        
+        /* Fixed scrolling animation - continuous loop */
+        .scroll-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .scroll-text {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: scrollText 45s linear infinite;
+            align-items: center;
+        }
+        .scroll-text span {
+            padding: 0 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        @keyframes scrollText { 
+            0% { transform: translateX(0%); } 
+            100% { transform: translateX(-50%); } 
+        }
+        
+        /* Announcement Bar - Professional Gold/Amber Design */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .announcement-bar {
+            background: linear-gradient(90deg, #1a2332, #1e2937, #1a2332);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+                        0 0 20px rgba(255, 215, 0, 0.1);
+            min-height: 64px;
+            height: auto;
+            animation: borderGlow 3s ease-in-out infinite;
+            z-index: 20;
+        }
+        
+        .announcement-scroll-container {
+            animation: scroll-left 45s linear infinite;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            display: inline-flex;
+        }
+        
+        .announcement-scroll-container:hover {
+            animation-play-state: paused;
+        }
+        
+        .announcement-icon-badge {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+        
+        .announcement-icon-glow {
+            position: absolute;
+            inset: -4px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            filter: blur(16px);
+            z-index: -1;
+        }
+        
+        .announcement-bullet {
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .announcement-text-content {
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 32px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        .announcement-live-badge {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 9999px;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .announcement-live-dot {
+            width: 8px;
+            height: 8px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        .announcement-bottom-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #FFD700, transparent);
+            opacity: 0.5;
+        }
+        
+        /* Sun rays for Dhuhr - subtle */
+        @keyframes rayRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rayPulse { 0%,100% { opacity: 0.15; } 50% { opacity: 0.3; } }
+        .sun-rays {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        .sun-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.12), transparent);
+            transform-origin: left center;
+            animation: rayPulse 4s ease-in-out infinite;
+        }
+        
+        /* Floating particles for Asr - visible */
+        @keyframes floatParticle { 
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes glowParticle {
+            0%, 100% { box-shadow: 0 0 10px rgba(251, 146, 60, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(251, 146, 60, 0.9); }
+        }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 200, 100, 0.9), rgba(251, 146, 60, 0.7));
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* Dawn glow for Fajr */
+        @keyframes dawnGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        .dawn-glow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.08), transparent);
+            animation: dawnGlow 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        /* Sunset clouds for Maghrib */
+        @keyframes cloudDrift { 
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+        .sunset-cloud {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.1), rgba(251, 146, 60, 0.08), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(30px);
+        }
+        
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        .pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+        .shimmer-effect { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); background-size: 1000px 100%; animation: shimmer 4s infinite; }
+        
+        .arabic-font { font-family: 'Amiri', serif; }
+        .glass-card { background: rgba(26, 45, 71, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(102, 225, 220, 0.15); }
+        .active-card { box-shadow: 0 0 50px rgba(102, 225, 220, 0.25), 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 2px solid rgba(255, 255, 255, 0.3); }
+        
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 6px rgba(255, 255, 255, 0.7); }
+        .islamic-pattern {
+            position: absolute; 
+            inset: 0; 
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='islamic-geometric' x='0' y='0' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Cg fill='none' stroke='%2366e1dc' stroke-width='0.4'%3E%3C%21-- Traditional 8-pointed star (Rub el Hizb) --%3E%3Cpath d='M50 0 L55 20 L75 20 L60 35 L70 55 L50 45 L30 55 L40 35 L25 20 L45 20 Z'/%3E%3C%21-- Inner square rotated --%3E%3Cpath d='M50 25 L60 35 L50 45 L40 35 Z'/%3E%3C%21-- Connecting lines forming grid --%3E%3Cpath d='M50 0 L50 25 M50 75 L50 100 M0 50 L25 50 M75 50 L100 50'/%3E%3C%21-- Corner motifs --%3E%3Cpath d='M0 0 L10 0 L0 10 Z'/%3E%3Cpath d='M100 0 L90 0 L100 10 Z'/%3E%3Cpath d='M0 100 L10 100 L0 90 Z'/%3E%3Cpath d='M100 100 L90 100 L100 90 Z'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23islamic-geometric)'/%3E%3C/svg%3E");
+            animation: patternDrift 150s linear infinite;
+            pointer-events: none;
+        }
+        .jummah-badge { background: linear-gradient(135deg, #d4af37, #f4d03f); }
+        
+        /* 99 Names of Allah Display */
+        /* Fade animation is handled by React state for smoother transitions */
+        
+        .asma-arabic-glow {
+            text-shadow: 0 0 20px rgba(102, 225, 220, 0.3),
+                         0 0 40px rgba(102, 225, 220, 0.2),
+                         0 0 60px rgba(102, 225, 220, 0.1);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { 
+                text-shadow: 0 0 20px rgba(102, 225, 220, 0.3),
+                             0 0 40px rgba(102, 225, 220, 0.2),
+                             0 0 60px rgba(102, 225, 220, 0.1);
+            }
+            50% { 
+                text-shadow: 0 0 30px rgba(102, 225, 220, 0.4),
+                             0 0 50px rgba(102, 225, 220, 0.3),
+                             0 0 70px rgba(102, 225, 220, 0.2);
+            }
+        }
+        
+        /* Prayer Progress Ring */
+        @keyframes progressPulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 5px rgba(102, 225, 220, 0.3));
+            }
+            50% { 
+                filter: drop-shadow(0 0 15px rgba(102, 225, 220, 0.6));
+            }
+        }
+        
+        .progress-ring-pulse {
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+        
+        /* Next Prayer Urgency Animations */
+        @keyframes imminent-bounce {
+            0%, 100% { 
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            10% { 
+                transform: translateY(-15px) scale(1.08) rotate(-2deg);
+            }
+            20% { 
+                transform: translateY(0) scale(1.05) rotate(0deg);
+            }
+            30% { 
+                transform: translateY(-12px) scale(1.08) rotate(2deg);
+            }
+            40% { 
+                transform: translateY(0) scale(1.05) rotate(0deg);
+            }
+            50% { 
+                transform: translateY(-8px) scale(1.06) rotate(-1deg);
+            }
+            60% { 
+                transform: translateY(0) scale(1.03) rotate(0deg);
+            }
+        }
+        
+        @keyframes glow-imminent {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(102, 225, 220, 0.8),
+                    0 0 40px rgba(102, 225, 220, 0.6),
+                    0 0 60px rgba(102, 225, 220, 0.4),
+                    0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 30px rgba(102, 225, 220, 1),
+                    0 0 60px rgba(102, 225, 220, 0.8),
+                    0 0 90px rgba(102, 225, 220, 0.6),
+                    0 15px 40px rgba(0, 0, 0, 0.6);
+            }
+        }
+        
+        @keyframes urgent-bounce {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                transform: translateY(-10px) scale(1.05);
+            }
+        }
+        
+        @keyframes glow-urgent {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(102, 225, 220, 0.6),
+                    0 0 30px rgba(102, 225, 220, 0.4),
+                    0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 25px rgba(102, 225, 220, 0.8),
+                    0 0 50px rgba(102, 225, 220, 0.6),
+                    0 12px 35px rgba(0, 0, 0, 0.5);
+            }
+        }
+        
+        @keyframes warning-pulse {
+            0%, 100% { 
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.03);
+            }
+        }
+        
+        @keyframes glow-warning {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 10px rgba(102, 225, 220, 0.5),
+                    0 0 20px rgba(102, 225, 220, 0.3),
+                    0 5px 20px rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 20px rgba(102, 225, 220, 0.7),
+                    0 0 40px rgba(102, 225, 220, 0.5),
+                    0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+        }
+        
+        @keyframes soon-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 8px rgba(102, 225, 220, 0.4),
+                    0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 
+                    0 0 15px rgba(102, 225, 220, 0.6),
+                    0 8px 20px rgba(0, 0, 0, 0.4);
+            }
+        }
+        
+        .next-prayer-imminent {
+            animation: 
+                imminent-bounce 0.6s ease-in-out infinite,
+                glow-imminent 1s ease-in-out infinite;
+        }
+        
+        .next-prayer-urgent {
+            animation: 
+                urgent-bounce 1s ease-in-out infinite,
+                glow-urgent 1.5s ease-in-out infinite;
+        }
+        
+        .next-prayer-warning {
+            animation: 
+                warning-pulse 2s ease-in-out infinite,
+                glow-warning 2s ease-in-out infinite;
+        }
+        
+        .next-prayer-soon {
+            animation: soon-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes icon-shake-fast {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(-20deg); }
+            20% { transform: rotate(20deg); }
+            30% { transform: rotate(-20deg); }
+            40% { transform: rotate(20deg); }
+            50% { transform: rotate(-10deg); }
+            60% { transform: rotate(10deg); }
+        }
+        
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes icon-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes icon-glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 3px rgba(102, 225, 220, 0.6));
+            }
+            50% { 
+                filter: drop-shadow(0 0 8px rgba(102, 225, 220, 0.9));
+            }
+        }
+        
+        .next-prayer-icon-shake {
+            animation: icon-shake-fast 0.5s ease-in-out infinite;
+        }
+        
+        .next-prayer-icon-bounce {
+            animation: icon-bounce 0.8s ease-in-out infinite;
+        }
+        
+        .next-prayer-icon-pulse {
+            animation: icon-pulse 1.5s ease-in-out infinite;
+        }
+        
+        .next-prayer-icon-glow {
+            animation: icon-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes time-flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes time-pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+        
+        .next-prayer-time-flash {
+            animation: time-flash 0.5s ease-in-out infinite;
+        }
+        
+        .next-prayer-time-pulse {
+            animation: time-pulse 1s ease-in-out infinite;
+        }
+        
+        .next-prayer-text-glow {
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Professional Hadith Section - Clean Modern Design */
+        .hadith-container {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hadith-text {
+            font-family: 'Crimson Text', serif;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            line-height: 1.6;
+        }
+        
+        .hadith-panel {
+            background: rgba(26, 45, 71, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 225, 220, 0.3);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(102, 225, 220, 0.1) inset;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hadith-fade-in {
+            animation: hadithFadeIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes hadithFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hadith-dot {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: rgba(102, 225, 220, 0.3);
+        }
+        
+        .hadith-dot.active {
+            background: #66e1dc;
+            width: 24px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(102, 225, 220, 0.4);
+        }
+        
+        .hadith-dot:not(.active):hover {
+            background: rgba(102, 225, 220, 0.5);
+            transform: scale(1.2);
+        }
+        
+        .hadith-icon-container {
+            background: transparent;
+            border: 1.5px solid rgba(102, 225, 220, 0.4);
+            border-radius: 8px;
+        }
+        
+        .hadith-badge {
+            background: #66e1dc;
+            box-shadow: 0 2px 8px rgba(102, 225, 220, 0.3);
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        // Security
+        const ENABLE_PASSWORD_PROTECTION = true;
+        const ADMIN_PASSWORD = 'masjid2025';
+        function checkAuth() {
+            if (!ENABLE_PASSWORD_PROTECTION) return true;
+            
+            const stored = sessionStorage.getItem('admin_authenticated');
+            if (stored === 'true') return true;
+            
+            const password = prompt('Enter password to access prayer times:');
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('admin_authenticated', 'true');
+                return true;
+            }
+            
+            alert('Access denied. Incorrect password.');
+            window.location.href = '/';
+            return false;
+        }
+        
+        if (!checkAuth()) {
+            document.body.innerHTML = '<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f1c2e] via-[#1a2d47] to-[#213655]"><div class="text-center"><h1 class="text-3xl font-bold text-white mb-4">Access Denied</h1><p class="text-white/70">Invalid password. Redirecting...</p></div></div>';
+            setTimeout(() => window.location.href = '/', 2000);
+        }
+
+        const { useState, useEffect, useCallback, useMemo } = React;
+
+        // Configuration
+        const CONFIG = {
+            mosqueName: "MASJID NUR AL TAWHEED",
+            mosqueArabic: "مسجد نور التوحيد",
+            bismillah: "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+            productionMode: window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1'),
+            city: "Skopje",
+            country: "Macedonia",
+            timezone: "Europe/Skopje",
+            method: 3,
+            hadithSheetUrl: null,
+            iqamahOffset: { Fajr: 20, Dhuhr: 15, Asr: 15, Maghrib: 5, Isha: 15 },
+            announcements: ["Jummah Prayer at 13:00", "Islamic Classes - Sunday after Dhuhr", "Support Your Masjid - JazakAllah Khair"],
+            prayerTranslations: {
+                en: {
+                    Fajr: "Fajr",
+                    Dhuhr: "Dhuhr",
+                    Asr: "Asr",
+                    Maghrib: "Maghrib",
+                    Isha: "Isha"
+                },
+                sq: {
+                    Fajr: "Sabahu",
+                    Dhuhr: "Dreka",
+                    Asr: "Ikindia",
+                    Maghrib: "Akshami",
+                    Isha: "Jacia"
+                }
+            },
+            labelTranslations: {
+                en: {
+                    nextPrayer: "Next Prayer",
+                    iqamah: "Iqamah",
+                    quran: "Quran",
+                    hadith: "Hadith",
+                    countdownPrefix: "in"
+                },
+                sq: {
+                    nextPrayer: "Namazi pasues",
+                    iqamah: "Ikameti",
+                    quran: "Kuran",
+                    hadith: "Hadith",
+                    countdownPrefix: "edhe"
+                }
+            },
+            tvMode: true,
+            allowScrolling: false,
+            compactLayout: false,
+            showHadith: true,
+            showAsmaUlHusna: true
+        };
+        
+        const TV_MODE_KEY = 'tv_mode_setting';
+        const savedTvMode = localStorage.getItem(TV_MODE_KEY);
+        if (savedTvMode !== null) {
+            try {
+                CONFIG.tvMode = savedTvMode === 'true';
+            } catch (e) {
+                CONFIG.tvMode = true;
+            }
+        }
+
+        const loadIqamahOffsets = () => {
+            const savedOffsets = localStorage.getItem('masjid_iqamah_offsets');
+            if (savedOffsets) {
+                try {
+                    const offsets = JSON.parse(savedOffsets);
+                    CONFIG.iqamahOffset = {
+                        Fajr: offsets.Fajr ?? CONFIG.iqamahOffset.Fajr,
+                        Dhuhr: offsets.Dhuhr ?? CONFIG.iqamahOffset.Dhuhr,
+                        Asr: offsets.Asr ?? CONFIG.iqamahOffset.Asr,
+                        Maghrib: offsets.Maghrib ?? CONFIG.iqamahOffset.Maghrib,
+                        Isha: offsets.Isha ?? CONFIG.iqamahOffset.Isha
+                    };
+                } catch (err) {
+                    console.warn('Failed to parse saved Iqamah offsets:', err);
+                }
+            }
+        };
+        
+        const loadAnnouncements = () => {
+            const saved = localStorage.getItem('masjid_announcements');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        CONFIG.announcements = parsed;
+                    }
+                } catch (err) {
+                    console.warn('Failed to parse saved announcements:', err);
+                }
+            }
+        };
+        
+        const loadDisplaySettings = () => {
+            const savedShowAsma = localStorage.getItem('masjid_show_asma_ul_husna');
+            if (savedShowAsma !== null) {
+                CONFIG.showAsmaUlHusna = savedShowAsma === 'true';
+            }
+        };
+        
+        loadIqamahOffsets();
+        loadAnnouncements();
+        loadDisplaySettings();
+        const ASMA_UL_HUSNA = [
+            { arabic: "الرَّحْمَنُ", transliteration: "Ar-Rahman", english: "The Most Merciful", albanian: "Mëshiruesi" },
+            { arabic: "الرَّحِيمُ", transliteration: "Ar-Raheem", english: "The Most Compassionate", albanian: "Mëshirëploti" },
+            { arabic: "الْمَلِكُ", transliteration: "Al-Malik", english: "The King", albanian: "Mbreti" },
+            { arabic: "الْقُدُّوسُ", transliteration: "Al-Quddus", english: "The Most Holy", albanian: "Më i Shenjti" },
+            { arabic: "السَّلَامُ", transliteration: "As-Salam", english: "The Source of Peace", albanian: "Burimi i Paqes" },
+            { arabic: "الْمُؤْمِنُ", transliteration: "Al-Mu'min", english: "The Guardian of Faith", albanian: "Mbrojtësi i Besimit" },
+            { arabic: "الْمُهَيْمِنُ", transliteration: "Al-Muhaymin", english: "The Protector", albanian: "Mbrojtësi" },
+            { arabic: "الْعَزِيزُ", transliteration: "Al-Aziz", english: "The Mighty", albanian: "i Fuqishmi" },
+            { arabic: "الْجَبَّارُ", transliteration: "Al-Jabbar", english: "The Compeller", albanian: "i Detyruesi" },
+            { arabic: "الْمُتَكَبِّرُ", transliteration: "Al-Mutakabbir", english: "The Supreme", albanian: "Më i Larti" },
+            { arabic: "الْخَالِقُ", transliteration: "Al-Khaliq", english: "The Creator", albanian: "Krijuesi" },
+            { arabic: "الْبَارِئُ", transliteration: "Al-Bari", english: "The Maker", albanian: "Bërësi" },
+            { arabic: "الْمُصَوِّرُ", transliteration: "Al-Musawwir", english: "The Fashioner", albanian: "Formuesi" },
+            { arabic: "الْغَفَّارُ", transliteration: "Al-Ghaffar", english: "The Repeatedly Forgiving", albanian: "Falësi i Vazhdueshëm" },
+            { arabic: "الْقَهَّارُ", transliteration: "Al-Qahhar", english: "The Subduer", albanian: "Nënshtruesi" },
+            { arabic: "الْوَهَّابُ", transliteration: "Al-Wahhab", english: "The Bestower", albanian: "Dhuruesi" },
+            { arabic: "الرَّزَّاقُ", transliteration: "Ar-Razzaq", english: "The Provider", albanian: "Furnizuesi" },
+            { arabic: "الْفَتَّاحُ", transliteration: "Al-Fattah", english: "The Opener", albanian: "Hapësi" },
+            { arabic: "الْعَلِيمُ", transliteration: "Al-Alim", english: "The All-Knowing", albanian: "i Gjithëdijshmi" },
+            { arabic: "الْقَابِضُ", transliteration: "Al-Qabid", english: "The Restrainer", albanian: "Kufizuesi" },
+            { arabic: "الْبَاسِطُ", transliteration: "Al-Basit", english: "The Expander", albanian: "Zgjeruesi" },
+            { arabic: "الْخَافِضُ", transliteration: "Al-Khafid", english: "The Abaser", albanian: "Ulësuesi" },
+            { arabic: "الرَّافِعُ", transliteration: "Ar-Rafi", english: "The Exalter", albanian: "Ngritësi" },
+            { arabic: "الْمُعِزُّ", transliteration: "Al-Mu'izz", english: "The Honorer", albanian: "Nderuesi" },
+            { arabic: "الْمُذِلُّ", transliteration: "Al-Mudhill", english: "The Humiliator", albanian: "Poshtëruesi" },
+            { arabic: "السَّمِيعُ", transliteration: "As-Sami", english: "The All-Hearing", albanian: "i Gjithëdëgjueshmi" },
+            { arabic: "الْبَصِيرُ", transliteration: "Al-Basir", english: "The All-Seeing", albanian: "i Gjithëshikueshmi" },
+            { arabic: "الْحَكَمُ", transliteration: "Al-Hakam", english: "The Judge", albanian: "Gjyqtari" },
+            { arabic: "الْعَدْلُ", transliteration: "Al-Adl", english: "The Just", albanian: "i Drejti" },
+            { arabic: "اللَّطِيفُ", transliteration: "Al-Latif", english: "The Subtle One", albanian: "i Butë" },
+            { arabic: "الْخَبِيرُ", transliteration: "Al-Khabir", english: "The All-Aware", albanian: "i Gjithëvetëdijshëm" },
+            { arabic: "الْحَلِيمُ", transliteration: "Al-Halim", english: "The Forbearing", albanian: "i Durueshmi" },
+            { arabic: "الْعَظِيمُ", transliteration: "Al-Azim", english: "The Great", albanian: "i Madhi" },
+            { arabic: "الْغَفُورُ", transliteration: "Al-Ghafur", english: "The Forgiving", albanian: "Falësi" },
+            { arabic: "الشَّكُورُ", transliteration: "Ash-Shakur", english: "The Appreciative", albanian: "Mirënjohësi" },
+            { arabic: "الْعَلِيُّ", transliteration: "Al-Ali", english: "The Most High", albanian: "Më i Larti" },
+            { arabic: "الْكَبِيرُ", transliteration: "Al-Kabir", english: "The Greatest", albanian: "Më i Madhi" },
+            { arabic: "الْحَفِيظُ", transliteration: "Al-Hafiz", english: "The Preserver", albanian: "Mbrojtësi" },
+            { arabic: "الْمُقِيتُ", transliteration: "Al-Muqit", english: "The Maintainer", albanian: "Mbanësi" },
+            { arabic: "الْحَسِيبُ", transliteration: "Al-Hasib", english: "The Reckoner", albanian: "Llogaritësi" },
+            { arabic: "الْجَلِيلُ", transliteration: "Al-Jalil", english: "The Majestic", albanian: "Madhështori" },
+            { arabic: "الْكَرِيمُ", transliteration: "Al-Karim", english: "The Generous", albanian: "Bujari" },
+            { arabic: "الرَّقِيبُ", transliteration: "Ar-Raqib", english: "The Watchful", albanian: "Vëzhguesi" },
+            { arabic: "الْمُجِيبُ", transliteration: "Al-Mujib", english: "The Responsive", albanian: "Përgjigjësi" },
+            { arabic: "الْوَاسِعُ", transliteration: "Al-Wasi", english: "The Vast", albanian: "i Gjerë" },
+            { arabic: "الْحَكِيمُ", transliteration: "Al-Hakim", english: "The Wise", albanian: "i Urti" },
+            { arabic: "الْوَدُودُ", transliteration: "Al-Wadud", english: "The Loving", albanian: "i Dashuri" },
+            { arabic: "الْمَجِيدُ", transliteration: "Al-Majid", english: "The Glorious", albanian: "i Lavdishmi" },
+            { arabic: "الْبَاعِثُ", transliteration: "Al-Ba'ith", english: "The Resurrector", albanian: "Ringjallësi" },
+            { arabic: "الشَّهِيدُ", transliteration: "Ash-Shahid", english: "The Witness", albanian: "Dëshmitari" },
+            { arabic: "الْحَقُّ", transliteration: "Al-Haqq", english: "The Truth", albanian: "E Vërteta" },
+            { arabic: "الْوَكِيلُ", transliteration: "Al-Wakil", english: "The Trustee", albanian: "Besëdhënësi" },
+            { arabic: "الْقَوِيُّ", transliteration: "Al-Qawiyy", english: "The Strong", albanian: "i Forti" },
+            { arabic: "الْمَتِينُ", transliteration: "Al-Matin", english: "The Firm", albanian: "i Qëndrueshmi" },
+            { arabic: "الْوَلِيُّ", transliteration: "Al-Wali", english: "The Protector", albanian: "Mbrojtësi" },
+            { arabic: "الْحَمِيدُ", transliteration: "Al-Hamid", english: "The Praiseworthy", albanian: "i Lartësuari" },
+            { arabic: "الْمُحْصِي", transliteration: "Al-Muhsi", english: "The Accounter", albanian: "Numëruesi" },
+            { arabic: "الْمُبْدِئُ", transliteration: "Al-Mubdi", english: "The Originator", albanian: "Fillestari" },
+            { arabic: "الْمُعِيدُ", transliteration: "Al-Mu'id", english: "The Restorer", albanian: "Rikthyesi" },
+            { arabic: "الْمُحْيِي", transliteration: "Al-Muhyi", english: "The Giver of Life", albanian: "Jepësi i Jetës" },
+            { arabic: "الْمُمِيتُ", transliteration: "Al-Mumit", english: "The Taker of Life", albanian: "Marrësi i Jetës" },
+            { arabic: "الْحَيُّ", transliteration: "Al-Hayy", english: "The Living", albanian: "i Gjalli" },
+            { arabic: "الْقَيُّومُ", transliteration: "Al-Qayyum", english: "The Self-Subsisting", albanian: "Vetëmbështetësi" },
+            { arabic: "الْوَاجِدُ", transliteration: "Al-Wajid", english: "The Finder", albanian: "Gjetësi" },
+            { arabic: "الْمَاجِدُ", transliteration: "Al-Majid", english: "The Noble", albanian: "Fisnori" },
+            { arabic: "الْوَاحِدُ", transliteration: "Al-Wahid", english: "The One", albanian: "i Vetmi" },
+            { arabic: "الْأَحَدُ", transliteration: "Al-Ahad", english: "The Unique", albanian: "i Veçantë" },
+            { arabic: "الصَّمَدُ", transliteration: "As-Samad", english: "The Eternal", albanian: "i Përjetshmi" },
+            { arabic: "الْقَادِرُ", transliteration: "Al-Qadir", english: "The Able", albanian: "i Zoti" },
+            { arabic: "الْمُقْتَدِرُ", transliteration: "Al-Muqtadir", english: "The Powerful", albanian: "i Fuqishmi" },
+            { arabic: "الْمُقَدِّمُ", transliteration: "Al-Muqaddim", english: "The Expediter", albanian: "Përparuesi" },
+            { arabic: "الْمُؤَخِّرُ", transliteration: "Al-Mu'akhkhir", english: "The Delayer", albanian: "Vonesuesi" },
+            { arabic: "الْأَوَّلُ", transliteration: "Al-Awwal", english: "The First", albanian: "i Parë" },
+            { arabic: "الْآخِرُ", transliteration: "Al-Akhir", english: "The Last", albanian: "i Fundit" },
+            { arabic: "الظَّاهِرُ", transliteration: "Az-Zahir", english: "The Manifest", albanian: "i Dukshmi" },
+            { arabic: "الْبَاطِنُ", transliteration: "Al-Batin", english: "The Hidden", albanian: "i Fshehtë" },
+            { arabic: "الْوَالِي", transliteration: "Al-Wali", english: "The Governor", albanian: "Qeveritari" },
+            { arabic: "الْمُتَعَالِي", transliteration: "Al-Muta'ali", english: "The Exalted", albanian: "i Lartësuari" },
+            { arabic: "الْبَرُّ", transliteration: "Al-Barr", english: "The Source of Goodness", albanian: "Burimi i Mirësisë" },
+            { arabic: "التَّوَّابُ", transliteration: "At-Tawwab", english: "The Acceptor of Repentance", albanian: "Pranuesi i Pendimit" },
+            { arabic: "الْمُنْتَقِمُ", transliteration: "Al-Muntaqim", english: "The Avenger", albanian: "Hakmarrësi" },
+            { arabic: "الْعَفُوُّ", transliteration: "Al-Afu", english: "The Pardoner", albanian: "Falësi" },
+            { arabic: "الرَّءُوفُ", transliteration: "Ar-Ra'uf", english: "The Kind", albanian: "i Butë" },
+            { arabic: "مَالِكُ الْمُلْكِ", transliteration: "Malik al-Mulk", english: "The Owner of Sovereignty", albanian: "Zotëruesi i Sovranitetit" },
+            { arabic: "ذُو الْجَلَالِ وَالْإِكْرَامِ", transliteration: "Dhu al-Jalal wa al-Ikram", english: "The Possessor of Majesty and Honor", albanian: "Zotëruesi i Madhështisë dhe Nderit" },
+            { arabic: "الْمُقْسِطُ", transliteration: "Al-Muqsit", english: "The Equitable", albanian: "i Drejti" },
+            { arabic: "الْجَامِعُ", transliteration: "Al-Jami", english: "The Gatherer", albanian: "Mbledhësi" },
+            { arabic: "الْغَنِيُّ", transliteration: "Al-Ghani", english: "The Self-Sufficient", albanian: "Vetëmjaftuesi" },
+            { arabic: "الْمُغْنِي", transliteration: "Al-Mughni", english: "The Enricher", albanian: "Pasuruesi" },
+            { arabic: "الْمَانِعُ", transliteration: "Al-Mani", english: "The Preventer", albanian: "Penguesi" },
+            { arabic: "الضَّارُّ", transliteration: "Ad-Darr", english: "The Afflicter", albanian: "Dëmtuesi" },
+            { arabic: "النَّافِعُ", transliteration: "An-Nafi", english: "The Benefiter", albanian: "Dobifitësi" },
+            { arabic: "النُّورُ", transliteration: "An-Nur", english: "The Light", albanian: "Drita" },
+            { arabic: "الْهَادِي", transliteration: "Al-Hadi", english: "The Guide", albanian: "Udhëheqësi" },
+            { arabic: "الْبَدِيعُ", transliteration: "Al-Badi", english: "The Incomparable", albanian: "i Paashtë" },
+            { arabic: "الْبَاقِي", transliteration: "Al-Baqi", english: "The Everlasting", albanian: "i Përjetshmi" },
+            { arabic: "الْوَارِثُ", transliteration: "Al-Warith", english: "The Inheritor", albanian: "Trashëgimtari" },
+            { arabic: "الرَّشِيدُ", transliteration: "Ar-Rashid", english: "The Guide to the Right Path", albanian: "Udhëheqësi në Rrugën e Drejtë" },
+            { arabic: "الصَّبُورُ", transliteration: "As-Sabur", english: "The Patient", albanian: "i Durueshmi" }
+        ];
+
+        // Storage
+        const STORAGE_KEYS = {
+            PRAYER_TIMES: 'prayer_times_cache',
+            LAST_FETCH: 'prayer_times_last_fetch',
+            CACHE_DURATION: 24 * 60 * 60 * 1000 // 24 hours
+        };
+
+        const getCachedPrayerTimes = () => {
+            try {
+                const cached = localStorage.getItem(STORAGE_KEYS.PRAYER_TIMES);
+                const lastFetch = localStorage.getItem(STORAGE_KEYS.LAST_FETCH);
+                if (cached && lastFetch) {
+                    const age = Date.now() - parseInt(lastFetch);
+                    if (age < STORAGE_KEYS.CACHE_DURATION) {
+                        return JSON.parse(cached);
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to read cache:', e);
+            }
+            return null;
+        };
+
+        const setCachedPrayerTimes = (prayerTimes) => {
+            try {
+                localStorage.setItem(STORAGE_KEYS.PRAYER_TIMES, JSON.stringify(prayerTimes));
+                localStorage.setItem(STORAGE_KEYS.LAST_FETCH, Date.now().toString());
+            } catch (e) {
+                console.warn('Failed to cache prayer times:', e);
+            }
+        };
+
+        // Time
+        const getSkopjeTime = () => {
+            const options = { timeZone: CONFIG.timezone, hour: 'numeric', minute: 'numeric', hour12: false };
+            const timeStr = new Date().toLocaleString('en-US', options);
+            const [h, m] = timeStr.split(':').map(Number);
+            return { hours: h, minutes: m, totalMinutes: h * 60 + m };
+        };
+
+        const getSkopjeDay = () => {
+            return new Date().toLocaleString('en-US', { timeZone: CONFIG.timezone, weekday: 'long' });
+        };
+
+        const formatTime = () => {
+            // This ensures consistency and 24-hour format
+            const options = { 
+                timeZone: CONFIG.timezone, 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                second: 'numeric',
+                hour12: false 
+            };
+            const timeStr = new Date().toLocaleString('en-US', options);
+            
+            const parts = timeStr.split(':');
+            if (parts.length === 3) {
+                const h = parseInt(parts[0], 10);
+                const m = parseInt(parts[1], 10);
+                const s = parseInt(parts[2], 10);
+                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+            
+            const time = getSkopjeTime();
+            const now = new Date();
+            const timeStrWithSeconds = now.toLocaleString('en-US', { 
+                timeZone: CONFIG.timezone, 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                second: 'numeric',
+                hour12: false 
+            });
+            const secParts = timeStrWithSeconds.split(':');
+            const seconds = secParts.length >= 3 ? parseInt(secParts[2], 10) : now.getSeconds();
+            return `${String(time.hours).padStart(2, '0')}:${String(time.minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        };
+
+        const getCurrentLanguage = () => {
+            return localStorage.getItem('masjid_language') || 'sq';
+        };
+
+        const formatDate = (langOverride = null) => {
+            const lang = langOverride || getCurrentLanguage();
+            const locale = lang === 'sq' ? 'sq-AL' : 'en-US'; // Albanian locale: sq-AL, English: en-US
+            return new Date().toLocaleDateString(locale, { 
+                timeZone: CONFIG.timezone, 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        };
+
+        const formatHijri = () => {
+            try {
+                return new Date().toLocaleDateString('en-TN-u-ca-islamic', { 
+                    timeZone: CONFIG.timezone, 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+            } catch { return ''; }
+        };
+
+        // Convert 24-hour time string to 12-hour format
+        const formatTime12Hour = (time24) => {
+            const [h, m] = time24.split(':').map(Number);
+            const hours = h % 12 || 12; // Convert 0 to 12, 13 to 1, etc.
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            return `${hours}:${String(m).padStart(2, '0')} ${ampm}`;
+        };
+
+        const getIqamahTime = (prayerName, adhanTime) => {
+            // Validate input
+            if (!adhanTime || typeof adhanTime !== 'string') {
+                console.warn('Invalid adhanTime:', adhanTime);
+                return '00:00';
+            }
+            
+            // Parse time string (expects "HH:MM" format)
+            const timeParts = adhanTime.split(':');
+            if (timeParts.length !== 2) {
+                console.warn('Invalid time format:', adhanTime);
+                return '00:00';
+            }
+            
+            const h = Number(timeParts[0]);
+            const m = Number(timeParts[1]);
+            
+            // Validate parsed numbers
+            if (isNaN(h) || isNaN(m) || h < 0 || h > 23 || m < 0 || m > 59) {
+                console.warn('Invalid time values:', h, m);
+                return '00:00';
+            }
+            
+            let offset = CONFIG.iqamahOffset[prayerName] || 15;
+            
+            const savedOffsets = localStorage.getItem('masjid_iqamah_offsets');
+            if (savedOffsets) {
+                try {
+                    const offsets = JSON.parse(savedOffsets);
+                    if (offsets[prayerName] !== undefined) {
+                        offset = offsets[prayerName];
+                    }
+                } catch (err) {
+                    // Use CONFIG default if parsing fails
+                }
+            }
+            
+            const totalMins = h * 60 + m + offset;
+            const newH = Math.floor(totalMins / 60) % 24;
+            const newM = totalMins % 60;
+            return `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}`;
+        };
+
+        const getSeason = () => {
+            const month = new Date().getMonth();
+            if (month >= 2 && month <= 4) return 'spring';
+            if (month >= 5 && month <= 7) return 'summer';
+            if (month >= 8 && month <= 10) return 'autumn';
+            return 'winter';
+        };
+
+        const getDynamicColors = (prayerName, season) => {
+            if (!prayerName || !season) {
+                return { gradient: 'from-slate-950 via-indigo-950 to-slate-900', glow: 'rgba(51, 65, 85, 0.35)' };
+            }
+            const colors = {
+                Fajr: { spring: { gradient: 'from-slate-950 via-indigo-950 to-slate-900', glow: 'rgba(51, 65, 85, 0.35)' }, summer: { gradient: 'from-gray-950 via-slate-900 to-indigo-950', glow: 'rgba(71, 85, 105, 0.35)' }, autumn: { gradient: 'from-slate-950 via-gray-900 to-slate-900', glow: 'rgba(51, 65, 85, 0.35)' }, winter: { gradient: 'from-slate-950 via-slate-900 to-indigo-950', glow: 'rgba(30, 41, 59, 0.35)' } },
+                Dhuhr: { spring: { gradient: 'from-amber-600 via-orange-600 to-yellow-600', glow: 'rgba(251, 191, 36, 0.35)' }, summer: { gradient: 'from-orange-600 via-amber-700 to-yellow-700', glow: 'rgba(245, 158, 11, 0.35)' }, autumn: { gradient: 'from-orange-700 via-amber-700 to-yellow-700', glow: 'rgba(217, 119, 6, 0.35)' }, winter: { gradient: 'from-amber-600 via-orange-600 to-yellow-600', glow: 'rgba(252, 211, 77, 0.35)' } },
+                Asr: { spring: { gradient: 'from-orange-700 via-red-600 to-amber-700', glow: 'rgba(251, 146, 60, 0.35)' }, summer: { gradient: 'from-red-700 via-orange-700 to-amber-800', glow: 'rgba(249, 115, 22, 0.35)' }, autumn: { gradient: 'from-red-800 via-orange-800 to-amber-900', glow: 'rgba(234, 88, 12, 0.35)' }, winter: { gradient: 'from-orange-700 via-red-600 to-amber-700', glow: 'rgba(253, 186, 116, 0.35)' } },
+                Maghrib: { spring: { gradient: 'from-rose-600 via-pink-700 to-red-700', glow: 'rgba(244, 63, 94, 0.35)' }, summer: { gradient: 'from-red-600 via-rose-700 to-pink-700', glow: 'rgba(239, 68, 68, 0.35)' }, autumn: { gradient: 'from-red-700 via-orange-700 to-rose-800', glow: 'rgba(220, 38, 38, 0.35)' }, winter: { gradient: 'from-pink-600 via-rose-700 to-red-700', glow: 'rgba(251, 113, 133, 0.35)' } },
+                Isha: { spring: { gradient: 'from-indigo-700 via-purple-800 to-violet-900', glow: 'rgba(129, 140, 248, 0.35)' }, summer: { gradient: 'from-purple-800 via-violet-900 to-indigo-950', glow: 'rgba(139, 92, 246, 0.35)' }, autumn: { gradient: 'from-violet-900 via-purple-950 to-indigo-950', glow: 'rgba(109, 40, 217, 0.35)' }, winter: { gradient: 'from-slate-800 via-blue-950 to-indigo-950', glow: 'rgba(30, 58, 138, 0.35)' } }
+            };
+            return colors[prayerName]?.[season] || colors.Fajr.spring;
+        };
+
+        // Data
+        const defaultHadiths = [
+            { text: "The covenant between us and them is prayer; whoever abandons it has disbelieved.", source: "Tirmidhi" },
+            { text: "The first action for which a servant will be held accountable on the Day of Judgment is prayer.", source: "Nasa'i" },
+            { text: "Whoever maintains the prayers will have light, proof, and salvation on the Day of Resurrection.", source: "Ahmad" },
+            { text: "The best of deeds is the prayer at its earliest time.", source: "Tirmidhi" },
+            { text: "Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of Allah is greater.", source: "Kuran 29:45" },
+            { text: "Pray as you have seen me praying.", source: "Bukhari" },
+            { text: "When any one of you stands to pray, he is communicating with his Lord.", source: "Bukhari" }
+        ];
+
+        // Icons
+        const Icons = {
+            Fajr: ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}><path d="M12 2v4M4.93 10.93l1.41 1.41M2 18h2M20 18h2M17.66 10.93l1.41-1.41"/><path d="M12 18a6 6 0 1 0 0-12"/><path d="M2 22h20"/></svg>,
+            Dhuhr: ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>,
+            Asr: ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}><circle cx="12" cy="12" r="4"/><path d="M12 4v2M12 18v2M6 12H4M20 12h-2"/></svg>,
+            Maghrib: ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}><path d="M12 10V2M4.93 10.93l1.41 1.41M2 18h2M20 18h2M17.66 10.93l1.41-1.41"/><path d="M12 18a6 6 0 0 1 0-12"/><path d="M2 22h20"/></svg>,
+            Isha: ({ size = 24, className = "" }) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>,
+            Mosque: ({ size = 70 }) => <svg width={size} height={size} viewBox="0 0 100 100" style={{display: 'block', margin: '0 auto'}}><defs><linearGradient id="mg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#66e1dc"/><stop offset="100%" stopColor="#4db8b3"/></linearGradient></defs><ellipse cx="50" cy="28" rx="18" ry="22" fill="none" stroke="url(#mg)" strokeWidth="2"/><rect x="32" y="28" width="36" height="52" fill="none" stroke="url(#mg)" strokeWidth="2" rx="2"/><rect x="18" y="42" width="10" height="38" fill="none" stroke="url(#mg)" strokeWidth="2"/><rect x="72" y="42" width="10" height="38" fill="none" stroke="url(#mg)" strokeWidth="2"/><circle cx="23" cy="38" r="4" fill="url(#mg)"/><circle cx="77" cy="38" r="4" fill="url(#mg)"/><circle cx="50" cy="12" r="5" fill="url(#mg)"/><path d="M42 80V62q8-10 16 0v18" fill="none" stroke="url(#mg)" strokeWidth="2"/></svg>
+        };
+
+        // Components
+        const Stars = ({ count = 35, visible }) => {
+            const stars = useMemo(() => Array.from({length: count}, (_, i) => ({
+                id: i, left: Math.random() * 100, top: Math.random() * 85,
+                size: Math.random() * 2.5 + 1, delay: Math.random() * 4, duration: Math.random() * 3 + 2
+            })), [count]);
+            if (!visible) return null;
+            return <div className="absolute inset-0 overflow-hidden pointer-events-none">{stars.map(s => <div key={s.id} className="star" style={{left:`${s.left}%`, top:`${s.top}%`, width: s.size, height: s.size, animation: `twinkle ${s.duration}s ${s.delay}s infinite`}}/>)}</div>;
+        };
+        
+        const SunRays = ({ visible }) => {
+            if (!visible) return null;
+            const rays = Array.from({length: 12}, (_, i) => i * 30);
+            return (
+                <div className="sun-rays" style={{animation: 'rayRotate 90s linear infinite'}}>
+                    {rays.map((angle, i) => (
+                        <div key={i} className="sun-ray" style={{transform: `rotate(${angle}deg)`, animationDelay: `${i * 0.3}s`}}/>
+                    ))}
+                </div>
+            );
+        };
+        
+        const FloatingParticles = ({ visible }) => {
+            const particles = useMemo(() => Array.from({length: 20}, (_, i) => ({
+                id: i, left: Math.random() * 100, size: Math.random() * 6 + 3,
+                duration: Math.random() * 10 + 12, delay: Math.random() * 10
+            })), []);
+            if (!visible) return null;
+            return (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {particles.map(p => (
+                        <div key={p.id} className="particle" style={{
+                            left: `${p.left}%`, width: p.size, height: p.size,
+                            animation: `floatParticle ${p.duration}s ${p.delay}s linear infinite, glowParticle 3s ${p.delay}s ease-in-out infinite`
+                        }}/>
+                    ))}
+                </div>
+            );
+        };
+        
+        const DawnGlow = ({ visible }) => {
+            if (!visible) return null;
+            return (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div className="dawn-glow"></div>
+                    <Stars count={30} visible={true} />
+                </div>
+            );
+        };
+        
+        const SunsetClouds = ({ visible }) => {
+            const clouds = useMemo(() => Array.from({length: 5}, (_, i) => ({
+                id: i, top: 10 + Math.random() * 30, width: 200 + Math.random() * 200,
+                height: 50 + Math.random() * 50, duration: 30 + Math.random() * 20, delay: i * 5
+            })), []);
+            if (!visible) return null;
+            return (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {clouds.map(c => (
+                        <div key={c.id} className="sunset-cloud" style={{
+                            top: `${c.top}%`, width: c.width, height: c.height,
+                            animation: `cloudDrift ${c.duration}s ${c.delay}s linear infinite`
+                        }}/>
+                    ))}
+                </div>
+            );
+        };
+
+        // Translations
+        const getPrayerTranslation = (prayerName, langOverride = null) => {
+            const lang = langOverride || getCurrentLanguage();
+            return CONFIG.prayerTranslations[lang]?.[prayerName] || CONFIG.prayerTranslations.sq[prayerName] || prayerName;
+        };
+
+        const getLabelTranslation = (labelKey, langOverride = null) => {
+            const lang = langOverride || getCurrentLanguage();
+            return CONFIG.labelTranslations[lang]?.[labelKey] || CONFIG.labelTranslations.sq[labelKey] || labelKey;
+        };
+
+        const translateQuranInSource = (source) => {
+            if (!source) return getLabelTranslation('hadith');
+            const lang = getCurrentLanguage();
+            const quranTranslation = CONFIG.labelTranslations[lang]?.quran || 'Kuran';
+            return source.replace(/Quran/gi, quranTranslation);
+        };
+
+        const AsmaUlHusnaDisplay = () => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [isVisible, setIsVisible] = useState(false);
+            
+            useEffect(() => {
+                setTimeout(() => setIsVisible(true), 100);
+            }, []);
+            
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setIsVisible(false);
+                    setTimeout(() => {
+                        setCurrentIndex(prev => (prev + 1) % ASMA_UL_HUSNA.length);
+                        setTimeout(() => setIsVisible(true), 50);
+                    }, 1000);
+                }, 30000);
+                
+                return () => clearInterval(interval);
+            }, []);
+            
+            const currentName = ASMA_UL_HUSNA[currentIndex];
+            const lang = getCurrentLanguage();
+            
+            return (
+                <div className="text-center relative z-10">
+                    <div 
+                        className="asma-display"
+                        style={{
+                            opacity: isVisible ? 1 : 0,
+                            transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                            transition: 'opacity 1s ease-in-out, transform 1s ease-in-out'
+                        }}
+                    >
+                        <div className={`asma-arabic-glow ${CONFIG.tvMode ? 'text-7xl md:text-8xl lg:text-9xl' : 'text-6xl md:text-7xl lg:text-8xl'} arabic-font text-white mb-5`}>
+                            {currentName.arabic}
+                        </div>
+                        <div className={`text-[#66e1dc]/80 ${CONFIG.tvMode ? 'text-2xl md:text-3xl lg:text-4xl' : 'text-xl md:text-2xl lg:text-3xl'} mb-2 font-medium`}>
+                            {currentName.transliteration}
+                        </div>
+                        <div className={`text-white/70 ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl lg:text-2xl'} arabic-font`}>
+                            {currentName.albanian}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const PrayerProgressRing = ({ prayerTimes, currentTime, countdown }) => {
+            const [progress, setProgress] = useState(0);
+            const [nextPrayer, setNextPrayer] = useState(null);
+            const [lastPrayer, setLastPrayer] = useState(null);
+            const [currentLang, setCurrentLang] = useState(getCurrentLanguage());
+            const [urgencyLevel, setUrgencyLevel] = useState('normal');
+            
+            useEffect(() => {
+                const activeCountdown = countdown || (nextPrayer && currentTime ? (() => {
+                    let diff = nextPrayer.mins - currentTime.totalMinutes;
+                    if (diff < 0) diff += 24 * 60;
+                    const hours = Math.floor(diff / 60);
+                    const minutes = diff % 60;
+                    return {
+                        name: nextPrayer.name,
+                        hours: hours >= 0 ? hours : 0,
+                        minutes: minutes >= 0 ? minutes : 0
+                    };
+                })() : null);
+                if (!activeCountdown) return;
+                const totalMinutes = activeCountdown.hours * 60 + activeCountdown.minutes;
+                
+                if (totalMinutes <= 1) {
+                    setUrgencyLevel('imminent');
+                } else if (totalMinutes <= 3) {
+                    setUrgencyLevel('urgent');
+                } else if (totalMinutes <= 5) {
+                    setUrgencyLevel('warning');
+                } else if (totalMinutes <= 10) {
+                    setUrgencyLevel('soon');
+                } else {
+                    setUrgencyLevel('normal');
+                }
+            }, [countdown, nextPrayer, currentTime]);
+            
+            useEffect(() => {
+                const handleLangChange = () => {
+                    setCurrentLang(getCurrentLanguage());
+                };
+                window.addEventListener('languageChanged', handleLangChange);
+                window.addEventListener('storage', (e) => {
+                    if (e.key === 'masjid_language') {
+                        setCurrentLang(getCurrentLanguage());
+                    }
+                });
+                return () => {
+                    window.removeEventListener('languageChanged', handleLangChange);
+                };
+            }, []);
+            
+            useEffect(() => {
+                if (!prayerTimes || !currentTime) return;
+                
+                const updateProgress = () => {
+                    const currentMins = currentTime.totalMinutes;
+                    let lastPrayerFound = null;
+                    let nextPrayerFound = null;
+                    
+                    for (let i = prayerTimes.length - 1; i >= 0; i--) {
+                        const [h, m] = prayerTimes[i].time.split(':').map(Number);
+                        const prayerMins = h * 60 + m;
+                        if (currentMins >= prayerMins) {
+                            lastPrayerFound = { name: prayerTimes[i].name, mins: prayerMins };
+                            break;
+                        }
+                    }
+                    
+                    for (let i = 0; i < prayerTimes.length; i++) {
+                        const [h, m] = prayerTimes[i].time.split(':').map(Number);
+                        const prayerMins = h * 60 + m;
+                        if (currentMins < prayerMins) {
+                            nextPrayerFound = { name: prayerTimes[i].name, mins: prayerMins };
+                            break;
+                        }
+                    }
+                    
+                    if (!nextPrayerFound) {
+                        const [h, m] = prayerTimes[0].time.split(':').map(Number);
+                        nextPrayerFound = { name: prayerTimes[0].name, mins: h * 60 + m + 24 * 60 };
+                    }
+                    
+                    if (lastPrayerFound && nextPrayerFound) {
+                        const totalDuration = nextPrayerFound.mins - lastPrayerFound.mins;
+                        const elapsed = currentMins - lastPrayerFound.mins;
+                        const progressPercent = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+                        setProgress(progressPercent);
+                        setNextPrayer(nextPrayerFound);
+                        setLastPrayer(lastPrayerFound);
+                    }
+                };
+                
+                updateProgress();
+                const interval = setInterval(updateProgress, 60000);
+                
+                return () => clearInterval(interval);
+            }, [prayerTimes, currentTime]);
+            
+            if (!prayerTimes || prayerTimes.length === 0) return null;
+            if (!currentTime) return null;
+            if (typeof currentTime.totalMinutes !== 'number' || isNaN(currentTime.totalMinutes)) {
+                if (!CONFIG.productionMode) console.warn('PrayerProgressRing: Invalid currentTime.totalMinutes', currentTime);
+                return null;
+            }
+            
+            const calculateNextPrayerFromProps = () => {
+                if (!prayerTimes || !currentTime) return null;
+                try {
+                    const currentMins = currentTime.totalMinutes;
+                    if (typeof currentMins !== 'number' || isNaN(currentMins)) return null;
+                    
+                    for (let i = 0; i < prayerTimes.length; i++) {
+                        if (!prayerTimes[i] || !prayerTimes[i].time) continue;
+                        const timeParts = prayerTimes[i].time.split(':');
+                        if (timeParts.length < 2) continue;
+                        const [h, m] = timeParts.map(Number);
+                        if (isNaN(h) || isNaN(m)) continue;
+                        const prayerMins = h * 60 + m;
+                        if (currentMins < prayerMins) {
+                            return { name: prayerTimes[i].name, mins: prayerMins };
+                        }
+                    }
+                    
+                    if (prayerTimes[0] && prayerTimes[0].time) {
+                        const timeParts = prayerTimes[0].time.split(':');
+                        if (timeParts.length >= 2) {
+                            const [h, m] = timeParts.map(Number);
+                            if (!isNaN(h) && !isNaN(m)) {
+                                return { name: prayerTimes[0].name, mins: h * 60 + m + 24 * 60 };
+                            }
+                        }
+                    }
+                } catch (e) {
+                    if (!CONFIG.productionMode) console.error('Error calculating next prayer:', e);
+                    return null;
+                }
+                return null;
+            };
+            
+            let computedNextPrayer = nextPrayer || calculateNextPrayerFromProps();
+            if (!computedNextPrayer) {
+                computedNextPrayer = calculateNextPrayerFromProps();
+            }
+            
+            if (computedNextPrayer && computedNextPrayer.name && (!nextPrayer || nextPrayer.name !== computedNextPrayer.name)) {
+                setNextPrayer(computedNextPrayer);
+            }
+            
+            const stableNextPrayer = nextPrayer || computedNextPrayer;
+            if (!stableNextPrayer || !stableNextPrayer.name) {
+                return null;
+            }
+            
+            const displayCountdown = countdown || (stableNextPrayer && currentTime && typeof currentTime.totalMinutes === 'number' && !isNaN(currentTime.totalMinutes) ? (() => {
+                try {
+                    let diff = computedNextPrayer.mins - currentTime.totalMinutes;
+                    if (diff < 0) diff += 24 * 60;
+                    if (isNaN(diff) || diff < 0) return null;
+                    const hours = Math.floor(diff / 60);
+                    const minutes = diff % 60;
+                    if (isNaN(hours) || isNaN(minutes)) return null;
+                        return {
+                            name: stableNextPrayer.name,
+                            hours: hours >= 0 ? hours : 0,
+                            minutes: minutes >= 0 ? minutes : 0
+                        };
+                } catch (e) {
+                    return null;
+                }
+            })() : null);
+            
+            if (!displayCountdown || !displayCountdown.name) {
+                if (!stableNextPrayer || !stableNextPrayer.name) {
+                    return null;
+                }
+                const fallbackCountdown = (() => {
+                    try {
+                        if (!currentTime || typeof currentTime.totalMinutes !== 'number') return null;
+                        let diff = stableNextPrayer.mins - currentTime.totalMinutes;
+                        if (diff < 0) diff += 24 * 60;
+                        if (isNaN(diff) || diff < 0) return null;
+                        const hours = Math.floor(diff / 60);
+                        const minutes = diff % 60;
+                        if (isNaN(hours) || isNaN(minutes)) return null;
+                        return {
+                            name: stableNextPrayer.name,
+                            hours: hours >= 0 ? hours : 0,
+                            minutes: minutes >= 0 ? minutes : 0
+                        };
+                    } catch (e) {
+                        return null;
+                    }
+                })();
+                
+                if (!fallbackCountdown) {
+                    return (
+                        <div className={`text-center ${CONFIG.compactLayout ? 'mb-3' : 'mb-4 md:mb-5'} w-full`}>
+                            <div className={`flex items-center justify-center gap-4 ${CONFIG.compactLayout ? 'px-6 py-3' : 'px-8 py-4'} glass-card rounded-2xl border border-[#66e1dc]/20 transition-all duration-300 mx-auto max-w-fit`}>
+                                <span className={`text-white/60 ${CONFIG.tvMode ? 'text-base md:text-lg lg:text-xl' : 'text-sm md:text-base'} uppercase tracking-wider font-semibold`}>
+                                    {getLabelTranslation('nextPrayer', currentLang)}
+                                </span>
+                                <span className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} font-bold`}>
+                                    {getPrayerTranslation(stableNextPrayer.name, currentLang)}
+                                </span>
+                            </div>
+                        </div>
+                    );
+                }
+                const nextPrayerName = getPrayerTranslation(stableNextPrayer.name, currentLang);
+                return (
+                    <div className={`text-center ${CONFIG.compactLayout ? 'mb-3' : 'mb-4 md:mb-5'} w-full`}>
+                        <div className={`flex items-center justify-center gap-4 ${CONFIG.compactLayout ? 'px-6 py-3' : 'px-8 py-4'} glass-card rounded-2xl border border-[#66e1dc]/20 transition-all duration-300 mx-auto max-w-fit`}>
+                            <span className={`text-white/60 ${CONFIG.tvMode ? 'text-base md:text-lg lg:text-xl' : 'text-sm md:text-base'} uppercase tracking-wider font-semibold`}>
+                                {getLabelTranslation('nextPrayer', currentLang)}
+                            </span>
+                            <span className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} font-bold`}>
+                                {nextPrayerName}
+                            </span>
+                            <span className="text-white/30 text-lg">|</span>
+                            <span className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} font-bold`}>
+                                {fallbackCountdown.hours > 0 ? `${fallbackCountdown.hours}h ` : ''}{fallbackCountdown.minutes}m
+                            </span>
+                        </div>
+                    </div>
+                );
+            }
+            
+            const nextPrayerName = getPrayerTranslation(displayCountdown.name, currentLang);
+            
+            // Smaller radius for inline progress ring
+            const inlineRadius = 20;
+            const inlineCircumference = 2 * Math.PI * inlineRadius;
+            const inlineOffset = inlineCircumference - (progress / 100) * inlineCircumference;
+            
+            const getAnimationClasses = () => {
+                switch (urgencyLevel) {
+                    case 'imminent':
+                        return {
+                            container: 'next-prayer-imminent',
+                            icon: 'next-prayer-icon-shake',
+                            time: 'next-prayer-time-flash',
+                            prayer: 'next-prayer-text-glow',
+                            label: 'next-prayer-text-glow'
+                        };
+                    case 'urgent':
+                        return {
+                            container: 'next-prayer-urgent',
+                            icon: 'next-prayer-icon-bounce',
+                            time: 'next-prayer-time-pulse',
+                            prayer: '',
+                            label: ''
+                        };
+                    case 'warning':
+                        return {
+                            container: 'next-prayer-warning',
+                            icon: 'next-prayer-icon-pulse',
+                            time: '',
+                            prayer: '',
+                            label: ''
+                        };
+                    case 'soon':
+                        return {
+                            container: 'next-prayer-soon',
+                            icon: 'next-prayer-icon-glow',
+                            time: '',
+                            prayer: '',
+                            label: ''
+                        };
+                    default:
+                        return {
+                            container: '',
+                            icon: '',
+                            time: '',
+                            prayer: '',
+                            label: ''
+                        };
+                }
+            };
+            
+            const animations = getAnimationClasses();
+            
+            const getLabelText = () => {
+                switch (urgencyLevel) {
+                    case 'imminent':
+                        return '⚠ PRAYER NOW';
+                    case 'urgent':
+                        return '⚡ PRAYER SOON';
+                    default:
+                        return getLabelTranslation('nextPrayer', currentLang);
+                }
+            };
+            
+            const getCountdownPrefix = () => {
+                switch (urgencyLevel) {
+                    case 'imminent':
+                        return 'STARTING';
+                    case 'urgent':
+                        return 'VERY SOON';
+                    default:
+                        return getLabelTranslation('countdownPrefix', currentLang);
+                }
+            };
+            
+            return (
+                <div className={`text-center ${CONFIG.compactLayout ? 'mb-3' : 'mb-4 md:mb-5'} w-full`}>
+                    <div className={`flex items-center justify-center gap-4 ${CONFIG.compactLayout ? 'px-6 py-3' : 'px-8 py-4'} glass-card rounded-2xl border border-[#66e1dc]/20 transition-all duration-300 ${animations.container} mx-auto max-w-fit`}>
+                        {urgencyLevel === 'imminent' && (
+                            <div className="absolute inset-0 bg-white opacity-10 rounded-2xl animate-pulse pointer-events-none" />
+                        )}
+                        
+                        <span className={`text-white/60 ${CONFIG.tvMode ? 'text-base md:text-lg lg:text-xl' : 'text-sm md:text-base'} uppercase tracking-wider font-semibold ${animations.label}`}>
+                            {getLabelText()}
+                        </span>
+                        <span className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} font-bold ${animations.prayer}`}>{nextPrayerName}</span>
+                        
+                        <div className={`relative ${CONFIG.tvMode ? 'w-16 h-16 md:w-20 md:h-20' : 'w-14 h-14 md:w-16 md:h-16'} ${progress >= 90 ? 'progress-ring-pulse' : ''} ${animations.icon}`}>
+                            <svg className="transform -rotate-90" width="100%" height="100%">
+                                <circle
+                                    cx="50%"
+                                    cy="50%"
+                                    r={inlineRadius}
+                                    fill="none"
+                                    stroke="#213655"
+                                    strokeWidth="5"
+                                />
+                                <circle
+                                    cx="50%"
+                                    cy="50%"
+                                    r={inlineRadius}
+                                    fill="none"
+                                    stroke="#66e1dc"
+                                    strokeWidth="5"
+                                    strokeDasharray={inlineCircumference}
+                                    strokeDashoffset={inlineOffset}
+                                    strokeLinecap="round"
+                                    style={{ transition: 'stroke-dashoffset 1s ease-out' }}
+                                />
+                            </svg>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xs md:text-sm' : 'text-xs'} font-bold`}>
+                                    {Math.round(progress)}%
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <span className="text-white/30 text-lg">|</span>
+                        <span className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} font-bold ${animations.time}`}>
+                            {displayCountdown ? `${getCountdownPrefix()} ${displayCountdown.hours > 0 ? `${displayCountdown.hours}h ` : ''}${displayCountdown.minutes}m` : 'Calculating...'}
+                        </span>
+                        
+                        {urgencyLevel === 'imminent' && (
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#66e1dc] via-white to-[#66e1dc] animate-pulse rounded-b-2xl" />
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const MosquePrayerTimes = () => {
+            const [tick, setTick] = useState(0);
+            const [prayerTimes, setPrayerTimes] = useState(null);
+            const [hadiths, setHadiths] = useState(defaultHadiths);
+            const [currentHadithIndex, setCurrentHadithIndex] = useState(0);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [previewPrayer, setPreviewPrayer] = useState(null);
+            const [previewSeason, setPreviewSeason] = useState(null);
+            const [currentLanguage, setCurrentLanguage] = useState(getCurrentLanguage());
+            const [showAsmaUlHusna, setShowAsmaUlHusna] = useState(() => {
+                const saved = localStorage.getItem('masjid_show_asma_ul_husna');
+                return saved !== null ? saved === 'true' : CONFIG.showAsmaUlHusna;
+            });
+            
+            const currentShowAsmaValue = useMemo(() => {
+                const saved = localStorage.getItem('masjid_show_asma_ul_husna');
+                const value = saved === null ? CONFIG.showAsmaUlHusna : saved === 'true';
+                if (value !== showAsmaUlHusna) {
+                    setTimeout(() => setShowAsmaUlHusna(value), 0);
+                }
+                return value;
+            }, [tick, showAsmaUlHusna]);
+
+            const skopjeTime = getSkopjeTime();
+            const skopjeDay = getSkopjeDay();
+            const actualSeason = getSeason();
+            const season = previewSeason || actualSeason;
+            const isNight = skopjeTime.hours >= 18 || skopjeTime.hours < 6;
+            const isJummah = skopjeDay === 'Friday';
+
+            const getActivePrayer = useCallback(() => {
+                if (!prayerTimes) return null;
+                const currentMins = skopjeTime.totalMinutes;
+                for (let i = prayerTimes.length - 1; i >= 0; i--) {
+                    const [h, m] = prayerTimes[i].time.split(':').map(Number);
+                    if (currentMins >= h * 60 + m) return prayerTimes[i].name;
+                }
+                return 'Isha';
+            }, [prayerTimes, skopjeTime.totalMinutes]);
+
+            const getNextPrayer = useCallback(() => {
+                if (!prayerTimes) return null;
+                const currentMins = skopjeTime.totalMinutes;
+                for (let i = 0; i < prayerTimes.length; i++) {
+                    const [h, m] = prayerTimes[i].time.split(':').map(Number);
+                    if (currentMins < h * 60 + m) return { name: prayerTimes[i].name, mins: h * 60 + m };
+                }
+                const [h, m] = prayerTimes[0].time.split(':').map(Number);
+                return { name: prayerTimes[0].name, mins: h * 60 + m + 24 * 60 };
+            }, [prayerTimes, skopjeTime.totalMinutes]);
+
+            const activePrayer = previewPrayer || getActivePrayer() || null;
+            const nextPrayer = getNextPrayer();
+            const countdown = nextPrayer ? (() => {
+                let diff = nextPrayer.mins - skopjeTime.totalMinutes;
+                if (diff < 0) diff += 24 * 60;
+                const hours = Math.floor(diff / 60);
+                const minutes = diff % 60;
+                return {
+                    name: nextPrayer.name,
+                    hours: hours >= 0 ? hours : 0,
+                    minutes: minutes >= 0 ? minutes : 0
+                };
+            })() : null;
+            
+            const activePrayerColors = activePrayer ? getDynamicColors(activePrayer, season) : null;
+
+            const fetchPrayerTimes = useCallback(async () => {
+                const cached = getCachedPrayerTimes();
+                if (cached && cached.length > 0) {
+                    const lang = getCurrentLanguage();
+                    const cachedWithIcons = cached.map(prayer => ({
+                        ...prayer,
+                        Icon: Icons[prayer.name] || Icons.Fajr,
+                        translatedName: prayer.translatedName || CONFIG.prayerTranslations[lang]?.[prayer.name] || CONFIG.prayerTranslations.sq[prayer.name] || prayer.name
+                    }));
+                    setPrayerTimes(cachedWithIcons);
+                    setLoading(false);
+                    setError(null);
+                }
+
+                try {
+                    const parts = new Date().toLocaleDateString('en-GB', { timeZone: CONFIG.timezone }).split('/');
+                    const apiDate = `${parts[2]}-${String(parts[1]).padStart(2, '0')}-${String(parts[0]).padStart(2, '0')}`;
+                    
+                    const response = await fetch(
+                        `https://api.aladhan.com/v1/timingsByCity/${apiDate}?city=${CONFIG.city}&country=${CONFIG.country}&method=${CONFIG.method}`,
+                        { 
+                            headers: { 'Accept': 'application/json' },
+                            cache: 'no-cache'
+                        }
+                    );
+                    
+                    if (!response.ok) {
+                        throw new Error(`API returned ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (!data) {
+                        console.error('API returned empty response');
+                        throw new Error('Empty API response');
+                    }
+                    
+                    if (data.code && data.code !== 200) {
+                        console.error('API returned error code:', data.code, data);
+                        throw new Error(`API error: ${data.status || 'Unknown error'}`);
+                    }
+                    
+                    if (!data.data) {
+                        console.error('API response missing data field:', data);
+                        throw new Error('Invalid API response: missing data field');
+                    }
+                    
+                    if (!data.data.timings) {
+                        console.error('API response missing timings:', data.data);
+                        throw new Error('Invalid API response: missing timings');
+                    }
+                    
+                    const t = data.data.timings;
+                    const lang = getCurrentLanguage();
+                    const newPrayerTimes = [
+                        { name: 'Fajr', time: t.Fajr, arabicName: 'الفجر', translatedName: CONFIG.prayerTranslations[lang]?.Fajr || CONFIG.prayerTranslations.sq.Fajr, Icon: Icons.Fajr },
+                        { name: 'Dhuhr', time: t.Dhuhr, arabicName: 'الظهر', translatedName: CONFIG.prayerTranslations[lang]?.Dhuhr || CONFIG.prayerTranslations.sq.Dhuhr, Icon: Icons.Dhuhr },
+                        { name: 'Asr', time: t.Asr, arabicName: 'العصر', translatedName: CONFIG.prayerTranslations[lang]?.Asr || CONFIG.prayerTranslations.sq.Asr, Icon: Icons.Asr },
+                        { name: 'Maghrib', time: t.Maghrib, arabicName: 'المغرب', translatedName: CONFIG.prayerTranslations[lang]?.Maghrib || CONFIG.prayerTranslations.sq.Maghrib, Icon: Icons.Maghrib },
+                        { name: 'Isha', time: t.Isha, arabicName: 'العشاء', translatedName: CONFIG.prayerTranslations[lang]?.Isha || CONFIG.prayerTranslations.sq.Isha, Icon: Icons.Isha }
+                    ];
+                    
+                    setPrayerTimes(newPrayerTimes);
+                    setCachedPrayerTimes(newPrayerTimes);
+                    setError(null);
+                    setLoading(false);
+                } catch (err) {
+                    console.error('Failed to fetch prayer times:', err);
+                    
+                    // If we don't have cached data, use fallback
+                    if (!cached) {
+                        setError('Unable to load prayer times. Please check your connection.');
+                        const lang = getCurrentLanguage();
+                        setPrayerTimes([
+                            { name: 'Fajr', time: '05:08', arabicName: 'الفجر', translatedName: CONFIG.prayerTranslations[lang]?.Fajr || CONFIG.prayerTranslations.sq.Fajr, Icon: Icons.Fajr },
+                            { name: 'Dhuhr', time: '11:25', arabicName: 'الظهر', translatedName: CONFIG.prayerTranslations[lang]?.Dhuhr || CONFIG.prayerTranslations.sq.Dhuhr, Icon: Icons.Dhuhr },
+                            { name: 'Asr', time: '13:45', arabicName: 'العصر', translatedName: CONFIG.prayerTranslations[lang]?.Asr || CONFIG.prayerTranslations.sq.Asr, Icon: Icons.Asr },
+                            { name: 'Maghrib', time: '16:03', arabicName: 'المغرب', translatedName: CONFIG.prayerTranslations[lang]?.Maghrib || CONFIG.prayerTranslations.sq.Maghrib, Icon: Icons.Maghrib },
+                            { name: 'Isha', time: '17:37', arabicName: 'العشاء', translatedName: CONFIG.prayerTranslations[lang]?.Isha || CONFIG.prayerTranslations.sq.Isha, Icon: Icons.Isha }
+                        ]);
+                    } else {
+                        // Show warning but use cached data
+                        setError('Using cached prayer times. Connection issue detected.');
+                    }
+                    setLoading(false);
+                }
+            }, []);
+
+            useEffect(() => {
+                fetchPrayerTimes();
+                let lastCheckedLang = getCurrentLanguage();
+                const clockTimer = setInterval(() => {
+                    setTick(t => t + 1);
+                    const savedLang = getCurrentLanguage();
+                    if (savedLang !== lastCheckedLang) {
+                        lastCheckedLang = savedLang;
+                        setCurrentLanguage(savedLang);
+                        setPrayerTimes(prevTimes => {
+                            if (prevTimes && prevTimes.length > 0) {
+                                return prevTimes.map(prayer => ({
+                                    ...prayer,
+                                    translatedName: CONFIG.prayerTranslations[savedLang]?.[prayer.name] || CONFIG.prayerTranslations.sq[prayer.name] || prayer.name
+                                }));
+                            }
+                            return prevTimes;
+                        });
+                        setTick(prev => prev + 1);
+                    }
+                    const savedShowAsma = localStorage.getItem('masjid_show_asma_ul_husna');
+                    const currentShowAsmaValue = savedShowAsma === null ? CONFIG.showAsmaUlHusna : savedShowAsma === 'true';
+                    setShowAsmaUlHusna(prevValue => {
+                        if (currentShowAsmaValue !== prevValue) {
+                            return currentShowAsmaValue;
+                        }
+                        return prevValue;
+                    });
+                }, 1000);
+                
+                const scheduleRefresh = () => {
+                    const now = new Date();
+                    const refreshTime = new Date();
+                    refreshTime.setHours(3, 0, 0, 0);
+                    if (now >= refreshTime) {
+                        refreshTime.setDate(refreshTime.getDate() + 1);
+                    }
+                    const msUntilRefresh = refreshTime - now;
+                    if (!CONFIG.productionMode) console.log('Page will refresh at 3:00 AM (' + Math.round(msUntilRefresh / 3600000) + ' hours)');
+                    return setTimeout(() => location.reload(), msUntilRefresh);
+                };
+                const refreshTimer = scheduleRefresh();
+                
+                const handleTvModeToggle = (e) => {
+                    if ((e.key === 't' || e.key === 'T') && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                        e.preventDefault();
+                        const newTvMode = !CONFIG.tvMode;
+                        CONFIG.tvMode = newTvMode;
+                        try {
+                            localStorage.setItem('tv_mode_setting', newTvMode.toString());
+                        } catch (err) {
+                            console.error('Failed to save TV mode setting:', err);
+                        }
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100);
+                    }
+                };
+                window.addEventListener('keydown', handleTvModeToggle);
+                
+                const handleKeyPress = (e) => {
+                    if (CONFIG.productionMode) return;
+                    const prayerNames = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+                    const seasons = ['spring', 'summer', 'autumn', 'winter'];
+                    if (e.key >= '1' && e.key <= '5') {
+                        const index = parseInt(e.key) - 1;
+                        setPreviewPrayer(prev => prev === prayerNames[index] ? null : prayerNames[index]);
+                    } else if (e.key === 'Escape') {
+                        setPreviewPrayer(null);
+                        setPreviewSeason(null);
+                    } else if (e.key === 's' || e.key === 'S') {
+                        setPreviewSeason(prev => {
+                            if (!prev) return 'spring';
+                            const currentIndex = seasons.indexOf(prev);
+                            return seasons[(currentIndex + 1) % seasons.length];
+                        });
+                    } else if (e.key === 'r' || e.key === 'R') {
+                        setPreviewPrayer(null);
+                        setPreviewSeason(null);
+                    }
+                };
+                window.addEventListener('keydown', handleKeyPress);
+                
+                return () => {
+                    clearInterval(clockTimer);
+                    clearTimeout(refreshTimer);
+                    window.removeEventListener('keydown', handleKeyPress);
+                    window.removeEventListener('keydown', handleTvModeToggle);
+                };
+            }, [fetchPrayerTimes]);
+
+            const loadHadiths = useCallback(async () => {
+                try {
+                    const sheetUrl = localStorage.getItem('masjid_sheet_url');
+                    if (sheetUrl && sheetUrl.trim()) {
+                        try {
+                            const response = await fetch(sheetUrl);
+                            if (response.ok) {
+                                const csvText = await response.text();
+                                const parseCSV = (text) => {
+                                    const rows = [];
+                                    let currentRow = [];
+                                    let currentField = '';
+                                    let inQuotes = false;
+                                    
+                                    for (let i = 0; i < text.length; i++) {
+                                        const char = text[i];
+                                        const nextChar = text[i + 1];
+                                        
+                                        if (char === '"') {
+                                            if (inQuotes && nextChar === '"') {
+                                                // Escaped quote (doubled quote)
+                                                currentField += '"';
+                                                i++; // Skip next quote
+                                            } else {
+                                                // Toggle quote state
+                                                inQuotes = !inQuotes;
+                                            }
+                                        } else if (char === ',' && !inQuotes) {
+                                            // Field separator (only outside quotes)
+                                            currentRow.push(currentField);
+                                            currentField = '';
+                                        } else if ((char === '\n' || (char === '\r' && nextChar !== '\n')) && !inQuotes) {
+                                            if (char === '\r' && nextChar === '\n') {
+                                                i++; // Skip \n
+                                            }
+                                            currentRow.push(currentField);
+                                            if (currentRow.length > 0 && currentRow.some(f => f.trim())) {
+                                                rows.push(currentRow);
+                                            }
+                                            currentRow = [];
+                                            currentField = '';
+                                        } else {
+                                            currentField += char;
+                                        }
+                                    }
+                                    
+                                    // Add last field and row if not empty
+                                    if (currentField || currentRow.length > 0) {
+                                        currentRow.push(currentField);
+                                        if (currentRow.length > 0 && currentRow.some(f => f.trim())) {
+                                            rows.push(currentRow);
+                                        }
+                                    }
+                                    
+                                    return rows;
+                                };
+                                
+                                const rows = parseCSV(csvText);
+                                if (rows.length > 1) {
+                                    const parsedHadiths = rows.slice(1).map(row => {
+                                        if (row.length >= 2) {
+                                            return {
+                                                text: row[0].trim(),
+                                                source: row[1].trim()
+                                            };
+                                        }
+                                        return null;
+                                    }).filter(h => h && h.text);
+                                    
+                                    if (parsedHadiths.length > 0) {
+                                        setHadiths(parsedHadiths);
+                                        // Reset index if out of bounds
+                                        setCurrentHadithIndex(0);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            console.warn('Failed to fetch from Google Sheets:', err);
+                            // Fall through to localStorage check
+                        }
+                    }
+                    
+                    const savedHadiths = localStorage.getItem('masjid_hadiths');
+                    if (savedHadiths) {
+                        try {
+                            const parsed = JSON.parse(savedHadiths);
+                            if (Array.isArray(parsed) && parsed.length > 0) {
+                                setHadiths(parsed);
+                                // Reset index if out of bounds
+                                setCurrentHadithIndex(0);
+                                return;
+                            }
+                        } catch (err) {
+                            console.warn('Failed to parse saved hadiths:', err);
+                        }
+                    }
+                    
+                } catch (err) {
+                    console.error('Error loading hadiths:', err);
+                }
+            }, []);
+
+            useEffect(() => {
+                loadHadiths();
+                
+                const handleStorageChange = (e) => {
+                    console.log('Storage event received:', e.key, 'New value:', e.newValue);
+                    if (e.key === 'masjid_hadiths' || e.key === 'masjid_sheet_url') {
+                        loadHadiths();
+                    } else if (e.key === 'masjid_language') {
+                        const newLang = e.newValue || getCurrentLanguage();
+                        setCurrentLanguage(newLang);
+                        if (prayerTimes && prayerTimes.length > 0) {
+                            const updatedPrayerTimes = prayerTimes.map(prayer => ({
+                                ...prayer,
+                                translatedName: CONFIG.prayerTranslations[newLang]?.[prayer.name] || CONFIG.prayerTranslations.sq[prayer.name] || prayer.name
+                            }));
+                            setPrayerTimes(updatedPrayerTimes);
+                        }
+                        setTick(prev => prev + 1);
+                    } else if (e.key === 'masjid_iqamah_offsets') {
+                        loadIqamahOffsets();
+                        setTick(prev => prev + 1);
+                    } else if (e.key === 'masjid_show_asma_ul_husna') {
+                        const newValue = e.newValue === 'true';
+                        setShowAsmaUlHusna(newValue);
+                        loadDisplaySettings();
+                        setTick(prev => prev + 1);
+                    }
+                };
+                
+                window.addEventListener('storage', handleStorageChange);
+                
+                const handleCustomStorage = () => {
+                    loadHadiths();
+                };
+                window.addEventListener('hadithsUpdated', handleCustomStorage);
+                
+                const handleLanguageChange = (e) => {
+                    const newLang = e.detail?.language || getCurrentLanguage();
+                    setCurrentLanguage(newLang);
+                    
+                    if (prayerTimes && prayerTimes.length > 0) {
+                        const updatedPrayerTimes = prayerTimes.map(prayer => ({
+                            ...prayer,
+                            translatedName: CONFIG.prayerTranslations[newLang]?.[prayer.name] || CONFIG.prayerTranslations.sq[prayer.name] || prayer.name
+                        }));
+                        setPrayerTimes(updatedPrayerTimes);
+                    }
+                    
+                    // Force re-render to update all language-dependent components
+                    setTick(prev => prev + 1);
+                };
+                window.addEventListener('languageChanged', handleLanguageChange);
+                
+                const handleIqamahOffsetsChange = (e) => {
+                    loadIqamahOffsets();
+                    // Force re-render to update Iqamah times
+                    setTick(prev => prev + 1);
+                };
+                window.addEventListener('iqamahOffsetsChanged', handleIqamahOffsetsChange);
+                
+                const handleAnnouncementsChange = () => {
+                    loadAnnouncements();
+                    setTick(prev => prev + 1);
+                };
+                window.addEventListener('announcementsUpdated', handleAnnouncementsChange);
+                
+                const handleDisplaySettingsChange = (e) => {
+                    loadDisplaySettings();
+                    const savedShowAsma = localStorage.getItem('masjid_show_asma_ul_husna');
+                    const newValue = savedShowAsma !== null ? savedShowAsma === 'true' : CONFIG.showAsmaUlHusna;
+                    setShowAsmaUlHusna(newValue);
+                    setTick(prev => prev + 1);
+                };
+                window.addEventListener('displaySettingsChanged', handleDisplaySettingsChange);
+                
+                const handleFocus = () => {
+                    const savedLang = getCurrentLanguage();
+                    if (savedLang !== currentLanguage) {
+                        setCurrentLanguage(savedLang);
+                        setPrayerTimes(prevTimes => {
+                            if (prevTimes && prevTimes.length > 0) {
+                                return prevTimes.map(prayer => ({
+                                    ...prayer,
+                                    translatedName: CONFIG.prayerTranslations[savedLang]?.[prayer.name] || CONFIG.prayerTranslations.sq[prayer.name] || prayer.name
+                                }));
+                            }
+                            return prevTimes;
+                        });
+                        setTick(prev => prev + 1);
+                    }
+                    const savedShowAsma = localStorage.getItem('masjid_show_asma_ul_husna');
+                    if (savedShowAsma !== null) {
+                        const newValue = savedShowAsma === 'true';
+                        if (newValue !== showAsmaUlHusna) {
+                            setShowAsmaUlHusna(newValue);
+                        }
+                    }
+                };
+                window.addEventListener('focus', handleFocus);
+                
+                return () => {
+                    window.removeEventListener('storage', handleStorageChange);
+                    window.removeEventListener('hadithsUpdated', handleCustomStorage);
+                    window.removeEventListener('languageChanged', handleLanguageChange);
+                    window.removeEventListener('iqamahOffsetsChanged', handleIqamahOffsetsChange);
+                    window.removeEventListener('announcementsUpdated', handleAnnouncementsChange);
+                    window.removeEventListener('displaySettingsChanged', handleDisplaySettingsChange);
+                    window.removeEventListener('focus', handleFocus);
+                };
+            }, [loadHadiths, prayerTimes, currentLanguage]);
+
+            // Clamp currentHadithIndex when hadiths array changes
+            useEffect(() => {
+                if (hadiths.length > 0) {
+                    setCurrentHadithIndex(prevIndex => {
+                        return prevIndex >= hadiths.length ? 0 : prevIndex;
+                    });
+                }
+            }, [hadiths.length]);
+
+            useEffect(() => {
+                const hadithTimer = setInterval(() => setCurrentHadithIndex(i => (i + 1) % hadiths.length), 12000);
+                return () => clearInterval(hadithTimer);
+            }, [hadiths.length]);
+
+            // Apply scroll settings to body
+            useEffect(() => {
+                if (CONFIG.allowScrolling) {
+                    document.body.classList.remove('no-scroll');
+                    document.body.classList.add('allow-scroll');
+                } else {
+                    document.body.classList.remove('allow-scroll');
+                    document.body.classList.add('no-scroll');
+                }
+                return () => {
+                    document.body.classList.remove('no-scroll', 'allow-scroll');
+                };
+            }, []);
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #0f1c2e 0%, #213655 100%)'}}>
+                        <div className="text-center flex flex-col items-center justify-center">
+                            <div className="mb-4">
+                                <Icons.Mosque size={100} />
+                            </div>
+                            <p className="text-[#66e1dc] text-xl">Loading prayer times...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className={`min-h-screen ${CONFIG.compactLayout ? 'p-4 md:p-6' : 'p-6 md:p-8 lg:p-10'} flex flex-col relative ${CONFIG.allowScrolling ? '' : 'overflow-hidden'}`} style={{background: 'linear-gradient(135deg, #0f1c2e 0%, #1a2d47 30%, #213655 60%, #0f1c2e 100%)'}}>
+                    
+                    <div className="islamic-pattern"></div>
+                    {activePrayer && (
+                        <>
+                            <Stars count={120} visible={activePrayer === 'Isha'} />
+                            <DawnGlow visible={activePrayer === 'Fajr'} />
+                            <SunRays visible={activePrayer === 'Dhuhr'} />
+                            <FloatingParticles visible={activePrayer === 'Asr'} />
+                            <SunsetClouds visible={activePrayer === 'Maghrib'} />
+                        </>
+                    )}
+                    
+                    <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute -top-40 -left-40 w-[800px] h-[800px] rounded-full blur-[150px] pulse-glow" style={{background: 'radial-gradient(circle, rgba(102, 225, 220, 0.15) 0%, transparent 70%)'}}></div>
+                        <div className="absolute -bottom-40 -right-40 w-[800px] h-[800px] rounded-full blur-[150px] pulse-glow" style={{background: 'radial-gradient(circle, rgba(33, 54, 85, 0.4) 0%, transparent 70%)'}}></div>
+                        {activePrayer && activePrayerColors && activePrayerColors.glow && (
+                            <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] rounded-full blur-[120px] pulse-glow transform -translate-x-1/2 -translate-y-1/2" style={{background: `radial-gradient(circle, ${activePrayerColors.glow} 0%, transparent 70%)`}}></div>
+                        )}
+                    </div>
+                    
+                        {!CONFIG.productionMode && (previewPrayer || previewSeason) && (
+                        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-30 glass-card px-5 py-2 rounded-lg text-xs cursor-pointer hover:bg-white/10 transition-colors flex items-center gap-3" onClick={() => { setPreviewPrayer(null); setPreviewSeason(null); }}>
+                            <span className="text-[#66e1dc]">◉</span>
+                            <span className="text-white/80">Preview</span>
+                            <span className="text-[#66e1dc] font-medium">{previewPrayer || '—'}</span>
+                            <span className="text-white/40">|</span>
+                            <span className="text-white/80">{season}</span>
+                            <span className="text-white/40 ml-2">Click to exit</span>
+                        </div>
+                    )}
+                    
+                    {!CONFIG.productionMode && !previewPrayer && !previewSeason && (
+                        <div className="absolute bottom-4 right-4 z-30 text-white/20 text-xs">
+                            1-5 preview • S season • T toggle TV mode
+                        </div>
+                    )}
+                    
+                    <div className="absolute top-4 right-4 z-30 glass-card px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-white/10 transition-colors" 
+                         onClick={() => {
+                             const newTvMode = !CONFIG.tvMode;
+                             CONFIG.tvMode = newTvMode;
+                             try {
+                                 localStorage.setItem('tv_mode_setting', newTvMode.toString());
+                             } catch (err) {
+                                 console.error('Failed to save TV mode setting:', err);
+                             }
+                             setTimeout(() => {
+                                 window.location.reload();
+                             }, 100);
+                         }}
+                         title="Click to toggle TV Mode (or press T)">
+                        <div className={`w-3 h-3 rounded-full transition-colors duration-300 ${CONFIG.tvMode ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}></div>
+                        <span className="text-white/80 text-xs font-medium">
+                            TV Mode: {CONFIG.tvMode ? 'ON (Large)' : 'OFF (Small)'}
+                        </span>
+                        <span className="text-white/40 text-xs">Click or Press T</span>
+                    </div>
+
+                    {CONFIG.announcements && CONFIG.announcements.length > 0 && (
+                        <div className="absolute top-0 left-0 right-0 announcement-bar py-4 px-6 z-20" style={{ minHeight: '64px', height: 'auto' }}>
+                            <div className="flex items-center h-full relative">
+                                <div className="flex-shrink-0 mr-4 relative z-10">
+                                    <div className="relative">
+                                        <div className="announcement-icon-glow"></div>
+                                        <div className="announcement-icon-badge">
+                                            <svg className="w-5 h-5" fill="none" stroke="#1a2332" strokeWidth="2.5" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex-1 overflow-hidden announcement-scroll-wrapper relative z-10">
+                                    <div className="announcement-scroll-container">
+                                        <span className="inline-block">
+                                            {CONFIG.announcements.map((announcement, index) => (
+                                                <span key={`first-${index}`} className="inline-flex items-center">
+                                                    <span className="announcement-bullet">•</span>
+                                                    <span className="announcement-text-content">{announcement}</span>
+                                                </span>
+                                            ))}
+                                            <span className="announcement-bullet">•</span>
+                                        </span>
+                                        <span className="inline-block">
+                                            {CONFIG.announcements.map((announcement, index) => (
+                                                <span key={`second-${index}`} className="inline-flex items-center">
+                                                    <span className="announcement-bullet">•</span>
+                                                    <span className="announcement-text-content">{announcement}</span>
+                                                </span>
+                                            ))}
+                                            <span className="announcement-bullet">•</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="flex-shrink-0 ml-4 relative z-10">
+                                    <div className="announcement-live-badge">
+                                        <div className="announcement-live-dot"></div>
+                                        <span className="text-[#FFD700] font-bold text-xs tracking-wider">LIVE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="announcement-bottom-line"></div>
+                        </div>
+                    )}
+
+                    <div className="relative z-10 max-w-[1600px] mx-auto w-full flex-1 flex flex-col" style={{ paddingTop: CONFIG.announcements && CONFIG.announcements.length > 0 ? '80px' : '32px' }}>
+                        
+                        <div className="text-center mb-6">
+                            <div className="inline-flex flex-col items-center">
+                                <p className={`text-white/50 ${CONFIG.tvMode ? 'text-sm md:text-base lg:text-lg' : 'text-base'} arabic-font mb-3 tracking-wide`}>{CONFIG.bismillah}</p>
+                                <div className="mb-3 float-animation flex justify-center"><Icons.Mosque size={CONFIG.compactLayout ? 50 : CONFIG.tvMode ? 70 : 60} /></div>
+                                <h1 className={`${CONFIG.tvMode ? 'text-5xl md:text-6xl lg:text-7xl' : 'text-3xl md:text-4xl'} font-bold text-white tracking-[0.12em] mb-1`}>{CONFIG.mosqueName}</h1>
+                                <p className={`text-[#66e1dc]/60 ${CONFIG.tvMode ? 'text-xl md:text-2xl' : 'text-lg'} arabic-font mb-2`}>{CONFIG.mosqueArabic}</p>
+                                <div className="h-[2px] w-28 bg-gradient-to-r from-transparent via-[#66e1dc] to-transparent"></div>
+                                {isJummah && <div className="mt-3 px-4 py-1.5 jummah-badge rounded-full"><span className={`text-[#0a1628] ${CONFIG.tvMode ? 'text-sm md:text-base' : 'text-xs'} font-bold tracking-widest`}>✨ JUMMAH MUBARAK ✨</span></div>}
+                            </div>
+                        </div>
+                        
+                        <div className="text-center mb-8" key={`clock-${currentLanguage}`}>
+                            <div className={`text-white ${CONFIG.tvMode ? 'text-8xl md:text-9xl lg:text-[12rem]' : 'text-7xl md:text-8xl lg:text-9xl'} font-light tracking-tight mb-2`} style={{textShadow: '0 4px 30px rgba(0,0,0,0.4)'}}>{formatTime()}</div>
+                            <div className={`text-white/70 ${CONFIG.tvMode ? 'text-lg md:text-xl lg:text-2xl' : 'text-base md:text-lg'}`}>{formatDate(currentLanguage)}</div>
+                            <div className={`text-[#66e1dc] ${CONFIG.tvMode ? 'text-base md:text-lg lg:text-xl' : 'text-sm md:text-base'} mt-1`}>{formatHijri()}</div>
+                        </div>
+
+                        {currentShowAsmaValue && (
+                            <div className="text-center mt-8 mb-10">
+                                <AsmaUlHusnaDisplay />
+                            </div>
+                        )}
+                        
+                        {prayerTimes && prayerTimes.length > 0 && skopjeTime && typeof skopjeTime.totalMinutes === 'number' && !isNaN(skopjeTime.totalMinutes) && (
+                            <div className="mb-6" key={`countdown-${currentLanguage}-${tick}`}>
+                                <PrayerProgressRing prayerTimes={prayerTimes} currentTime={skopjeTime} countdown={countdown} />
+                            </div>
+                        )}
+
+                        {prayerTimes && prayerTimes.length > 0 && (
+                        <div className="flex-1 flex items-center mb-4" key={`prayers-${currentLanguage}`}>
+                            <div className={`grid grid-cols-5 ${CONFIG.compactLayout ? 'gap-2 md:gap-3' : 'gap-3 md:gap-4 lg:gap-5'} w-full max-w-[1400px] mx-auto`}>
+                                {prayerTimes.map((prayer) => {
+                                    if (!prayer || !prayer.name) return null;
+                                    const isActive = prayer.name === activePrayer;
+                                    const colors = getDynamicColors(prayer.name, season) || getDynamicColors('Fajr', season);
+                                    // Ensure Icon is always defined - restore from Icons if missing
+                                    let IconComp = prayer.Icon;
+                                    if (!IconComp && typeof Icons !== 'undefined' && Icons) {
+                                        IconComp = Icons[prayer.name] || Icons.Fajr;
+                                    }
+                                    
+                                    if (!IconComp || typeof IconComp !== 'function') {
+                                        console.error('Icon component not found for prayer:', prayer.name, 'Available Icons:', typeof Icons !== 'undefined' ? Object.keys(Icons || {}) : 'undefined');
+                                        return null;
+                                    }
+                                    
+                                    return (
+                                        <div 
+                                            key={prayer.name} 
+                                            className={`transition-transform duration-500 ${!CONFIG.productionMode ? 'cursor-pointer hover:scale-[1.03]' : ''} ${isActive ? 'scale-[1.02]' : ''}`}
+                                            onClick={() => !CONFIG.productionMode && setPreviewPrayer(previewPrayer === prayer.name ? null : prayer.name)}
+                                            title={!CONFIG.productionMode ? `Click to preview ${prayer.name} theme` : ''}
+                                        >
+                                            <div className={`relative rounded-2xl ${CONFIG.compactLayout ? 'p-3 md:p-4' : 'p-4 md:p-5 lg:p-6'} transition-all duration-500 overflow-hidden ${isActive && colors ? `bg-gradient-to-br ${colors.gradient} active-card` : 'glass-card'}`}>
+                                                {isActive && <div className="absolute inset-0 shimmer-effect"></div>}
+                                                {isActive && <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-transparent"></div>}
+                                                
+                                                <div className={`flex justify-center ${CONFIG.compactLayout ? 'mb-2' : 'mb-3'} relative z-10`}>
+                                                    <div className={`${CONFIG.compactLayout ? 'p-2' : 'p-3'} rounded-xl ${isActive ? 'bg-white/30' : 'bg-[#0f1c2e]/50 border border-white/10'}`}>
+                                                        {IconComp && <IconComp size={CONFIG.tvMode ? (CONFIG.compactLayout ? 24 : 32) : 28} className={isActive ? 'text-white' : 'text-[#66e1dc]'} />}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className={`text-center ${CONFIG.compactLayout ? 'mb-1' : 'mb-2'} relative z-10`}>
+                                                    <div className={`${CONFIG.tvMode ? 'text-base md:text-lg lg:text-xl' : 'text-sm md:text-base'} font-semibold ${isActive ? 'text-white' : 'text-white/90'}`}>{prayer.translatedName || getPrayerTranslation(prayer.name, currentLanguage)}</div>
+                                                    <div className={`${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-lg md:text-xl'} arabic-font ${isActive ? 'text-white/90' : 'text-white/60'}`}>{prayer.arabicName}</div>
+                                                </div>
+                                                
+                                                <div className={`${CONFIG.tvMode ? 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl' : 'text-3xl md:text-4xl lg:text-5xl'} font-bold text-center mb-1 relative z-10 ${isActive ? 'text-white' : 'text-white'}`}>{prayer.time}</div>
+                                                
+                                                <div className={`text-center ${CONFIG.tvMode ? 'text-xl md:text-2xl lg:text-3xl' : 'text-base md:text-lg lg:text-xl'} relative z-10 ${isActive ? 'text-white/80' : 'text-[#66e1dc]/70'} font-semibold`}>{getLabelTranslation('iqamah', currentLanguage)}: {getIqamahTime(prayer.name, prayer.time)}</div>
+                                                
+                                                {isActive && (
+                                                    <div className="flex justify-center mt-2 relative z-10">
+                                                        <div className={`px-3 py-1 rounded-full ${(!CONFIG.productionMode && (previewPrayer || previewSeason)) ? 'bg-white/20 border border-white/30' : 'bg-white/30'}`}>
+                                                            <span className="text-white text-xs font-bold tracking-widest">{(!CONFIG.productionMode && (previewPrayer || previewSeason)) ? 'PREVIEW' : 'NOW'}</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        )}
+
+                        {error && (
+                            <div className="max-w-4xl mx-auto w-full mb-4">
+                                <div className="glass-card rounded-2xl p-4 border border-yellow-500/30 bg-yellow-500/10">
+                                    <div className="flex items-center gap-3">
+                                        <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                                        </svg>
+                                        <p className="text-yellow-200 text-sm">{error}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Professional Hadith Section */}
+                        {CONFIG.showHadith && hadiths.length > 0 && currentHadithIndex >= 0 && currentHadithIndex < hadiths.length && hadiths[currentHadithIndex] && (
+                            <div className="w-[95%] mx-auto mb-4 px-2">
+                                <div className="hadith-panel relative overflow-hidden rounded-2xl" style={{ minHeight: '140px', height: 'auto' }}>
+                                    {/* Subtle shimmer effect */}
+                                    <div className="absolute inset-0 shimmer-effect opacity-5"></div>
+                                    
+                                    {/* Main content */}
+                                    <div className="hadith-container relative z-10 flex flex-col items-center justify-center px-8 md:px-12 lg:px-16 py-5 md:py-6">
+                                        {/* Source badge with icon - Clean horizontal layout */}
+                                        <div className="flex items-center justify-center gap-3 mb-4">
+                                            <div className="hadith-icon-container w-9 h-9 md:w-10 md:h-10 flex items-center justify-center">
+                                                <svg className="w-5 h-5 md:w-6 md:h-6 text-[#66e1dc]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
+                                                </svg>
+                                            </div>
+                                            <div 
+                                                key={`badge-${currentHadithIndex}`}
+                                                className="hadith-fade-in hadith-badge px-5 md:px-6 py-1.5 md:py-2 rounded-full"
+                                            >
+                                                <span className="text-[#0f1c2e] font-bold text-xs md:text-sm tracking-wider">
+                                                    {translateQuranInSource(hadiths[currentHadithIndex]?.source).replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').toUpperCase()}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Hadith text - Clean centered layout */}
+                                        <div 
+                                            key={`text-${currentHadithIndex}`}
+                                            className="hadith-fade-in flex-1 flex items-center justify-center px-4 md:px-8"
+                                        >
+                                            <p className="hadith-text text-white/95 leading-relaxed italic text-lg md:text-xl lg:text-2xl text-center max-w-4xl">
+                                                {(hadiths[currentHadithIndex]?.text || '').replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '')}
+                                            </p>
+                                        </div>
+                                        
+                                        {/* Navigation dots - Clean minimal design */}
+                                        <div className="flex items-center justify-center gap-2 mt-4">
+                                            {hadiths.map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => setCurrentHadithIndex(index)}
+                                                    className={`hadith-dot ${index === currentHadithIndex ? 'active' : ''}`}
+                                                    aria-label={`Go to hadith ${index + 1}`}
+                                                    title={`Hadith ${index + 1} of ${hadiths.length}`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Error boundary for React rendering
+        const renderApp = () => {
+            try {
+                // Check if React is loaded
+                if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+                    throw new Error('React or ReactDOM not loaded. Please check your internet connection.');
+                }
+
+                const rootElement = document.getElementById('root');
+                if (!rootElement) {
+                    throw new Error('Root element not found');
+                }
+                
+                ReactDOM.render(<MosquePrayerTimes />, rootElement);
+            } catch (error) {
+                console.error('React rendering error:', error);
+                const rootElement = document.getElementById('root');
+                if (rootElement) {
+                    rootElement.innerHTML = `
+                        <div style="padding: 20px; text-align: center; color: #66e1dc; background: #0f1c2e; min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <h1 style="color: #ff6b6b; margin-bottom: 20px;">Error Loading Prayer Times</h1>
+                            <p style="margin-bottom: 10px;">Please check the browser console for details.</p>
+                            <p style="font-size: 12px; color: #888;">Error: ${error.message}</p>
+                            <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #66e1dc; color: #0f1c2e; border: none; border-radius: 5px; cursor: pointer;">Reload Page</button>
+                        </div>
+                    `;
+                }
+            }
+        };
+
+        // Wait for React to load, then render
+        const waitForReact = () => {
+            if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+                renderApp();
+            } else {
+                // Retry after a short delay
+                setTimeout(waitForReact, 50);
+            }
+        };
+
+        // Start waiting for React
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', waitForReact);
+        } else {
+            waitForReact();
+        }
+
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

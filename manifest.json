@@ -1,0 +1,16 @@
+{
+  "name": "Masjid Nur Al Tawheed Prayer Times",
+  "short_name": "Prayer Times",
+  "description": "Daily prayer times for Masjid Nur Al Tawheed, Skopje, Macedonia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1c2e",
+  "theme_color": "#0f1c2e",
+  "orientation": "any",
+  "icons": [],
+  "categories": ["lifestyle", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+}
+
+
