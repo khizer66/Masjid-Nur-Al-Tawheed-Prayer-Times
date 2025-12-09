@@ -1,7 +1,7 @@
 // Service Worker for Prayer Times Display
-// Version 1.1.0
+// Version 1.2.0
 
-const CACHE_NAME = 'prayer-times-v4';
+const CACHE_NAME = 'prayer-times-v5';
 const urlsToCache = [
   '/',
   '/index.html'
@@ -28,17 +28,27 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
+          // Delete ALL old caches (not just non-matching ones)
+          if (cacheName.startsWith('prayer-times-')) {
             console.log('Service Worker: Deleting old cache', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     }).then(() => {
-      // Force update all clients
-      return self.clients.claim();
+      // Force update all clients immediately
+      return self.clients.claim().then(() => {
+        // Send message to all clients to reload
+        return self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage({ type: 'SW_UPDATED', action: 'reload' });
+          });
+        });
+      });
     })
   );
+  // Take control immediately
+  return self.clients.claim();
 });
 
 // Fetch event - serve from cache, fallback to network
@@ -72,36 +82,44 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For other requests, try cache first, then network
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version if available
-        if (response) {
+  // For HTML files, always fetch from network first (no cache)
+  if (event.request.destination === 'document' || event.request.url.endsWith('.html')) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then((response) => {
+          // Don't cache HTML files - always get fresh version
           return response;
+        })
+        .catch(() => {
+          // If network fails, try cache as fallback
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
+
+  // For other requests, try network first, then cache
+  event.respondWith(
+    fetch(event.request, { cache: 'no-cache' })
+      .then((response) => {
+        // If network succeeds, return it and update cache
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
         }
-
-        // Otherwise fetch from network
-        return fetch(event.request)
-          .then((response) => {
-            // Don't cache if not a valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
+        return response;
+      })
+      .catch(() => {
+        // If network fails, try cache
+        return caches.match(event.request)
+          .then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
             }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            // Cache the fetched response
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          })
-          .catch(() => {
-            // If both cache and network fail, return offline page if available
+            // If both fail and it's a document request, return index.html
             if (event.request.destination === 'document') {
               return caches.match('/index.html');
             }
