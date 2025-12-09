@@ -2126,7 +2126,13 @@
                     </div>
 
                     {CONFIG.announcements && CONFIG.announcements.length > 0 && (
-                        <div className="absolute top-0 left-0 right-0 announcement-bar py-4 px-6 z-20" style={{ minHeight: '64px', height: 'auto' }}>
+                        <div className="absolute top-0 left-0 right-0 announcement-bar py-4 px-6 z-20" style={{ 
+                            minHeight: '64px', 
+                            height: 'auto',
+                            background: 'linear-gradient(90deg, #d97706, #f59e0b, #fbbf24, #f59e0b, #d97706) !important',
+                            borderBottom: '2px solid rgba(255, 215, 0, 0.5)',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(245, 158, 11, 0.4)'
+                        }}>
                             <div className="flex items-center h-full relative">
                                 <div className="flex-shrink-0 mr-4 relative z-10">
                                     <div className="relative">
