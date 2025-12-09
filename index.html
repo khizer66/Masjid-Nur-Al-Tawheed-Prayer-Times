@@ -2508,7 +2508,7 @@
 
         // Wait for React to load, then render
         const waitForReact = async () => {
-            // First check authentication
+            // First check authentication - this must run immediately
             const authenticated = await checkAuth();
             if (!authenticated) {
                 return;
@@ -2523,12 +2523,9 @@
             }
         };
 
-        // Start waiting for React (after authentication)
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', waitForReact);
-        } else {
-            waitForReact();
-        }
+        // Start authentication check immediately (don't wait for DOMContentLoaded)
+        // This ensures the modal shows before any content loads
+        waitForReact();
 
         // Register Service Worker for offline support
         if ('serviceWorker' in navigator) {
