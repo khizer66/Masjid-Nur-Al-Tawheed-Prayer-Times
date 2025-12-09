@@ -2547,100 +2547,38 @@
         // This ensures the modal shows before any content loads
         waitForReact();
 
-        // Register Service Worker for offline support
+        // Register Service Worker for offline support (simplified - no auto-reloads)
         if ('serviceWorker' in navigator) {
-            // Prevent immediate reload loops - check if page was just loaded
-            const pageLoadTime = Date.now();
-            const lastReloadTime = sessionStorage.getItem('last_reload_time');
-            if (lastReloadTime && (Date.now() - parseInt(lastReloadTime)) < 3000) {
-                // Page was reloaded less than 3 seconds ago, skip service worker updates
-                console.log('Recent reload detected, skipping service worker update check');
-            } else {
-                // Unregister ALL service workers immediately on page load
-                navigator.serviceWorker.getRegistrations().then((registrations) => {
-                    registrations.forEach((registration) => {
-                        registration.unregister().then(() => {
-                            console.log('Service worker unregistered');
-                            // Clear all caches
-                            caches.keys().then((cacheNames) => {
-                                cacheNames.forEach((cacheName) => {
-                                    caches.delete(cacheName);
-                                });
-                            });
-                        });
-                    });
-                });
-            }
-            
             window.addEventListener('load', () => {
-                // Register new service worker with cache-busting
-                navigator.serviceWorker.register('/sw.js?v=7&t=' + Date.now())
+                // Register service worker without aggressive cache-busting
+                navigator.serviceWorker.register('/sw.js')
                     .then((registration) => {
                         console.log('Service Worker registered:', registration.scope);
                         
-                        // Check for updates every 5 minutes (not immediately to prevent loops)
+                        // Only check for updates every 30 minutes (much less frequent)
                         setInterval(() => {
-                            registration.update();
-                        }, 300000);
+                            registration.update().catch(() => {
+                                // Silently fail if update check fails
+                            });
+                        }, 1800000); // 30 minutes
                         
-                        // Also check for updates on page visibility change (with delay)
-                        document.addEventListener('visibilitychange', () => {
-                            if (!document.hidden) {
-                                // Delay update check to prevent immediate reload loops
-                                setTimeout(() => {
-                                    registration.update();
-                                }, 1000);
-                            }
-                        });
-                        
-                        // Listen for service worker updates
+                        // Listen for service worker updates but DON'T auto-reload
                         registration.addEventListener('updatefound', () => {
                             const newWorker = registration.installing;
                             if (!newWorker) return;
                             
                             newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // Check if we've already reloaded for this update
-                                    const reloadKey = 'sw_reload_' + newWorker.scriptURL;
-                                    if (sessionStorage.getItem(reloadKey)) {
-                                        return; // Already reloaded, prevent loop
-                                    }
-                                    
-                                    // Mark that we're about to reload
-                                    sessionStorage.setItem(reloadKey, 'true');
-                                    sessionStorage.setItem('last_reload_time', Date.now().toString());
-                                    
-                                    // New service worker available, reload page after a delay
-                                    console.log('New service worker available, reloading in 2 seconds...');
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
+                                if (newWorker.state === 'installed') {
+                                    // New service worker available, but don't auto-reload
+                                    // User can manually refresh if needed
+                                    console.log('New service worker available. Refresh page to activate.');
                                 }
                             });
                         });
-                        
-                        // Listen for messages from service worker
-                        navigator.serviceWorker.addEventListener('message', (event) => {
-                            if (event.data && event.data.type === 'SW_UPDATED') {
-                                // Check if we've already reloaded
-                                const reloadKey = 'sw_message_reload';
-                                if (sessionStorage.getItem(reloadKey)) {
-                                    return; // Already reloaded, prevent loop
-                                }
-                                
-                                // Mark that we're about to reload
-                                sessionStorage.setItem(reloadKey, 'true');
-                                sessionStorage.setItem('last_reload_time', Date.now().toString());
-                                
-                                console.log('Service worker updated, reloading in 2 seconds...');
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            }
-                        });
                     })
                     .catch((error) => {
-                        console.log('Service Worker registration failed:', error);
+                        // Silently fail - service worker is optional
+                        console.log('Service Worker registration failed (non-critical):', error);
                     });
             });
         }
