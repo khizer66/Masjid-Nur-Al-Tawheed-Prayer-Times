@@ -80,7 +80,7 @@
             100% { transform: translateX(-50%); } 
         }
         
-        /* Announcement Bar - Professional Gold/Amber Design */
+        /* Announcement Bar - Navy/Teal Theme */
         @keyframes scroll-left {
             0% {
                 transform: translateX(0);
@@ -94,23 +94,23 @@
             0%, 100% {
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
                             0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                            0 0 30px rgba(245, 158, 11, 0.4);
+                            0 0 20px rgba(94, 234, 212, 0.2);
             }
             50% {
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
                             0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                            0 0 40px rgba(245, 158, 11, 0.6);
+                            0 0 30px rgba(94, 234, 212, 0.3);
             }
         }
         
         .announcement-bar {
-            background: linear-gradient(90deg, #d97706, #f59e0b, #fbbf24, #f59e0b, #d97706) !important;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.5) !important;
+            background: linear-gradient(90deg, #1a2332, #1e2937, #1a2332) !important;
+            border-bottom: 2px solid rgba(94, 234, 212, 0.3) !important;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
                         0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                        0 0 30px rgba(245, 158, 11, 0.4);
+                        0 0 20px rgba(94, 234, 212, 0.2);
             min-height: 64px;
             height: auto;
             animation: borderGlow 3s ease-in-out infinite;
@@ -131,7 +131,7 @@
         .announcement-icon-badge {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
+            background: linear-gradient(135deg, #FFD700, #FFC700);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -143,26 +143,26 @@
         .announcement-icon-glow {
             position: absolute;
             inset: -4px;
-            background: rgba(245, 158, 11, 0.4);
+            background: rgba(94, 234, 212, 0.2);
             border-radius: 12px;
             filter: blur(16px);
             z-index: -1;
         }
         
         .announcement-bullet {
-            color: #78350f;
+            color: #FFD700;
             font-size: 18px;
             font-weight: bold;
             margin-right: 12px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
         
         .announcement-text-content {
-            color: #1a2332;
+            color: #FFD700;
             font-weight: 700;
             font-size: 16px;
             margin-right: 32px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
         
         @keyframes pulse {
@@ -175,8 +175,8 @@
         }
         
         .announcement-live-badge {
-            background: rgba(120, 53, 15, 0.2);
-            border: 1px solid rgba(120, 53, 15, 0.5);
+            background: rgba(94, 234, 212, 0.15);
+            border: 1px solid rgba(94, 234, 212, 0.3);
             border-radius: 9999px;
             padding: 4px 12px;
             display: flex;
@@ -187,7 +187,7 @@
         .announcement-live-dot {
             width: 8px;
             height: 8px;
-            background: #78350f;
+            background: #FFD700;
             border-radius: 50%;
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -207,7 +207,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(to right, transparent, #f59e0b, #fbbf24, #f59e0b, transparent);
+            background: linear-gradient(to right, transparent, rgba(94, 234, 212, 0.5), rgba(94, 234, 212, 0.3), rgba(94, 234, 212, 0.5), transparent);
             opacity: 0.7;
         }
         
@@ -2265,9 +2265,9 @@
                         <div className="absolute top-0 left-0 right-0 announcement-bar py-4 px-6 z-20" style={{ 
                             minHeight: '64px', 
                             height: 'auto',
-                            background: 'linear-gradient(90deg, #d97706, #f59e0b, #fbbf24, #f59e0b, #d97706) !important',
-                            borderBottom: '2px solid rgba(255, 215, 0, 0.5)',
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(245, 158, 11, 0.4)'
+                            background: 'linear-gradient(90deg, #1a2332, #1e2937, #1a2332) !important',
+                            borderBottom: '2px solid rgba(94, 234, 212, 0.3)',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 20px rgba(94, 234, 212, 0.2)'
                         }}>
                             <div className="flex items-center h-full relative">
                                 <div className="flex-shrink-0 mr-4 relative z-10">
